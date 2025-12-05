@@ -2,6 +2,7 @@ package org.example.tsplviewer.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextArea;
 import org.example.tsplviewer.model.TSPLCommand;
 import org.example.tsplviewer.parser.TSPLParser;
@@ -33,7 +34,8 @@ public class AppController {
             List<TSPLCommand> commands = tsplParser.parse(newText);
             List<String> errors = tsplParser.validate(newText);
 
-            previewCanvas = labelPreview.render(commands);
+            GraphicsContext gc = previewCanvas.getGraphicsContext2D();
+            labelPreview.render(commands, gc);
 
             validationArea.setText(String.join("\n", errors));
         });

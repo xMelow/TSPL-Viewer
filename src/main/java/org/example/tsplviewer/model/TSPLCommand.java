@@ -12,7 +12,13 @@ public class TSPLCommand {
         this.params = params;
     }
 
-    // getters and setters
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getParams() {
+        return params;
+    }
 
     @Override
     public String toString() {
