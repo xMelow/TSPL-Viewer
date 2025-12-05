@@ -20,8 +20,13 @@ public class AppController {
     @FXML
     private TextArea validationArea;
 
-    private TSPLParser tsplParser;
-    private LabelPreview labelPreview;
+    private final TSPLParser tsplParser;
+    private final LabelPreview labelPreview;
+
+    public AppController() {
+        tsplParser = new TSPLParser();
+        labelPreview = new LabelPreview();
+    }
 
     public void initialize() {
         tsplTextArea.textProperty().addListener((obs, oldText, newText) -> {
