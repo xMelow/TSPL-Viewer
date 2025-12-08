@@ -2,10 +2,7 @@ package org.example.tsplviewer.renderer;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import org.example.tsplviewer.model.BarCommand;
-import org.example.tsplviewer.model.BoxCommand;
-import org.example.tsplviewer.model.TSPLCommand;
-import org.example.tsplviewer.model.TextCommand;
+import org.example.tsplviewer.model.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -64,6 +61,9 @@ public class LabelPreview {
             if (command instanceof BarCommand bar) {
                 drawBarElement(gc, bar);
             }
+            if (command instanceof CircleCommand circle) {
+                drawCircleElement(gc, circle);
+            }
         }
     }
 
@@ -98,6 +98,17 @@ public class LabelPreview {
 
         gc.setStroke(Color.BLACK);
         gc.fillRect(x, y, width, height);
+    }
+
+    private void drawCircleElement(GraphicsContext gc, CircleCommand circle) {
+        double x = d2p(circle.getxStart());
+        double y = d2p(circle.getyStart());
+        double d = d2p(circle.getDiameter());
+        double thickness = d2p(circle.getThickness());
+
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(thickness);
+        gc.strokeOval(x, y, d, d);
     }
 
     private double d2p(int dots) {

@@ -19,7 +19,7 @@
 
             <items>
                 <VBox spacing="5.0">
-                    <Label text="TSPL Editor" />
+                    <Label text="TSPL Code" />
                     <TextArea fx:id="tsplTextArea" prefWidth="400" prefHeight="600" />
                 </VBox>
 
