@@ -4,15 +4,24 @@ import java.util.List;
 
 public class TSPLCommand {
 
-    private String type;
+    protected String name;
     private List<String> params;
 
-    // constructor
-
-    public TSPLCommand(String type, List<String> params) {
-        this.type = type;
+    public TSPLCommand(String name, List<String> params) {
+        this.name = name;
         this.params = params;
     }
 
-    // getters and setters
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getParams() {
+        return params;
+    }
+
+    @Override
+    public String toString() {
+        return "command name: " + name + " Params: " + params;
+    }
 }

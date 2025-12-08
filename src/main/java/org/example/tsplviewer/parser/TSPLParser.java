@@ -1,22 +1,114 @@
 package org.example.tsplviewer.parser;
 
 import org.example.tsplviewer.model.TSPLCommand;
+import org.example.tsplviewer.model.TextCommand;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TSPLParser {
 
+     private boolean clsHasAppeared = false;
 
-    public TSPLParser() {
-
-    }
+    public TSPLParser() {}
 
     public List<TSPLCommand> parse(String tspl) {
-        return new ArrayList<>();
+        List<TSPLCommand> commands = new ArrayList<>();
+
+        for (String tsplSentence : tspl.split("\\r?\\n")) {
+            checkForCLS(tsplSentence);
+            if (!clsHasAppeared) {
+                commands.add(getPrintCommand(tsplSentence));
+            } else {
+                commands.add(getDrawCommand(tsplSentence));
+            }
+        }
+        System.out.println(commands);
+        return commands;
+    }
+
+    private void checkForCLS(String sentence) {
+        if (sentence.contains("CLS")) {
+            clsHasAppeared = true;
+        }
+    }
+
+    private TSPLCommand getPrintCommand(String tsplSentence) {
+        String commandName = getCommandName(tsplSentence);
+        List<String> commandParams = getPrintParams(tsplSentence);
+        return createCommand(commandName, commandParams);
+    }
+
+    private TSPLCommand getDrawCommand(String tsplSentence) {
+        String commandName = getCommandName(tsplSentence);
+        List<String> commandParams = getDrawParams(tsplSentence);
+        return createCommand(commandName, commandParams);
+    }
+
+    private String getCommandName(String sentence) {
+        if (sentence.isEmpty()) return "";
+
+        String[] parts = sentence.split("\\s+");
+
+        if (parts[0].equalsIgnoreCase("SET")) {
+            if (parts.length >= 2) {
+                return parts[1];
+            } else {
+                return "";
+            }
+        }
+        return parts[0];
+    }
+
+    private List<String> getPrintParams(String sentence) {
+        String cleanSentence = removeMetrics(sentence);
+        return getParams(cleanSentence);
+    }
+
+    private List<String> getDrawParams(String sentence) {
+        return getParams(sentence);
+    }
+
+    private TSPLCommand createCommand(String name, List<String> params) {
+        System.out.println("create command: " + name);
+        return switch (name.toUpperCase()) {
+            case "TEXT" -> new TextCommand(name, params);
+            default -> new TSPLCommand(name, params);
+        };
+    }
+
+    private String removeMetrics(String s) {
+        return s.replace(" mm", "").trim();
+    }
+
+    private List<String> getParams(String sentence) {
+        List<String> result = new ArrayList<>();
+
+        sentence = sentence.trim();
+        if (sentence.isEmpty()) return result;
+
+        String commandName = getCommandName(sentence);
+        String cleanSentence = sentence.replace(commandName + " ", "").trim();
+
+        if (cleanSentence.length() > 1) {
+            String[] parts = cleanSentence.split(",");
+            result.addAll(List.of(parts));
+        } else {
+            result.add(cleanSentence);
+        }
+        return result;
     }
 
     public List<String> validate(String tspl) {
-        return new ArrayList<String>();
+        // check for:
+        // missing params
+        // unknown commands
+        // invalid coordinates
+        // missing ""
+        List<String> errors = new ArrayList<>();
+
+        // return error string list
+        return errors;
     }
 }
