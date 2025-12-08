@@ -2,13 +2,13 @@ package org.example.tsplviewer.renderer;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
+import org.example.tsplviewer.model.BarCommand;
+import org.example.tsplviewer.model.BoxCommand;
 import org.example.tsplviewer.model.TSPLCommand;
 import org.example.tsplviewer.model.TextCommand;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class LabelPreview {
 
@@ -56,15 +56,48 @@ public class LabelPreview {
     private void drawLabelElements(GraphicsContext gc, List<TSPLCommand> commands) {
         for (TSPLCommand command : commands) {
             if (command instanceof TextCommand text) {
-                double x = d2p(text.getX());
-                double y = d2p(text.getY());
+                drawTextElement(gc, text);
+            }
+            if (command instanceof BoxCommand box) {
+                drawBoxElement(gc, box);
+            }
+            if (command instanceof BarCommand bar) {
+                drawBarElement(gc, bar);
+            }
+        }
+    }
+
+    private void drawTextElement(GraphicsContext gc, TextCommand text) {
+        double x = d2p(text.getX());
+        double y = d2p(text.getY());
 
 //                double fontSize = d2p(text.getFont())
 
-                gc.setFill(Color.BLACK);
-                gc.fillText(text.getContent(), x, y);
-            }
-        }
+        gc.setFill(Color.BLACK);
+        gc.fillText(text.getContent(), x, y);
+    }
+
+    private void drawBoxElement(GraphicsContext gc, BoxCommand box) {
+        double x = d2p(box.getX());
+        double y = d2p(box.getY());
+        double xEnd = d2p(box.getxEnd());
+        double yEnd = d2p(box.getyEnd());
+        double width = xEnd - x;
+        double height = yEnd - y;
+
+        gc.setStroke(Color.BLACK);
+        gc.strokeRect(x, y, width, height);
+
+    }
+
+    private void drawBarElement(GraphicsContext gc, BarCommand bar) {
+        double x = d2p(bar.getX());
+        double y = d2p(bar.getY());
+        double width = d2p(bar.getWidth());
+        double height = d2p(bar.getHeight());
+
+        gc.setStroke(Color.BLACK);
+        gc.fillRect(x, y, width, height);
     }
 
     private double d2p(int dots) {

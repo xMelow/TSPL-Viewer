@@ -1,10 +1,11 @@
 package org.example.tsplviewer.parser;
 
+import org.example.tsplviewer.model.BarCommand;
+import org.example.tsplviewer.model.BoxCommand;
 import org.example.tsplviewer.model.TSPLCommand;
 import org.example.tsplviewer.model.TextCommand;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TSPLParser {
@@ -71,9 +72,10 @@ public class TSPLParser {
     }
 
     private TSPLCommand createCommand(String name, List<String> params) {
-        System.out.println("create command: " + name);
         return switch (name.toUpperCase()) {
             case "TEXT" -> new TextCommand(name, params);
+            case "BOX" -> new BoxCommand(name, params);
+            case "BAR" -> new BarCommand(name, params);
             default -> new TSPLCommand(name, params);
         };
     }

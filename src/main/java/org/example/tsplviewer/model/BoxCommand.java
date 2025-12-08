@@ -2,7 +2,7 @@ package org.example.tsplviewer.model;
 
 import java.util.List;
 
-public class BoxElement extends TSPLCommand {
+public class BoxCommand extends TSPLCommand {
 
     private int x;
     private int y;
@@ -10,14 +10,14 @@ public class BoxElement extends TSPLCommand {
     private int yEnd;
     private int thickness;
 
-    public BoxElement(String name, List<String> params) {
+    public BoxCommand(String name, List<String> params) {
         super(name, params);
 
         this.x = Integer.parseInt(params.getFirst());
-        this.y = Integer.parseInt(params.get(2));
-        this.xEnd = Integer.parseInt(params.get(3));
-        this.yEnd = Integer.parseInt(params.get(4));
-        this.thickness = Integer.parseInt(params.get(5));
+        this.y = Integer.parseInt(params.get(1));
+        this.xEnd = Integer.parseInt(params.get(2));
+        this.yEnd = Integer.parseInt(params.get(3));
+        this.thickness = Integer.parseInt(params.get(4));
     }
 
     public int getX() {
