@@ -1,6 +1,7 @@
 package org.example.tsplviewer.parser;
 
 import org.example.tsplviewer.model.TSPLCommand;
+import org.example.tsplviewer.model.TextCommand;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,13 +37,13 @@ public class TSPLParser {
     private TSPLCommand getPrintCommand(String tsplSentence) {
         String commandName = getCommandName(tsplSentence);
         List<String> commandParams = getPrintParams(tsplSentence);
-        return new TSPLCommand(commandName, commandParams);
+        return createCommand(commandName, commandParams);
     }
 
     private TSPLCommand getDrawCommand(String tsplSentence) {
         String commandName = getCommandName(tsplSentence);
         List<String> commandParams = getDrawParams(tsplSentence);
-        return new TSPLCommand(commandName, commandParams);
+        return createCommand(commandName, commandParams);
     }
 
     private String getCommandName(String sentence) {
@@ -67,6 +68,14 @@ public class TSPLParser {
 
     private List<String> getDrawParams(String sentence) {
         return getParams(sentence);
+    }
+
+    private TSPLCommand createCommand(String name, List<String> params) {
+        System.out.println("create command: " + name);
+        return switch (name.toUpperCase()) {
+            case "TEXT" -> new TextCommand(name, params);
+            default -> new TSPLCommand(name, params);
+        };
     }
 
     private String removeMetrics(String s) {

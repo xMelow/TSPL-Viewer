@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import org.example.tsplviewer.model.TSPLCommand;
+import org.example.tsplviewer.model.TextCommand;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,8 +12,8 @@ import java.util.Optional;
 
 public class LabelPreview {
 
-    private int width = 400;
-    private int height = 200;
+    private static final double PRINTER_DPI = 300.0;
+    private static final double SCREEN_DPI = 96.0;
 
     public LabelPreview() {
 
@@ -27,10 +28,10 @@ public class LabelPreview {
         double[] labelSize = getLabelWidthAndHeight(commands);
         double labelWidth = labelSize[0];
         double labelHeight = labelSize[1];
-        double dpi = 96;
+        double oneInchInMm = 25.4;
 
-        double widthPx = labelWidth * dpi / 25.4;
-        double heightPx = labelHeight * dpi / 25.4;
+        double widthPx = labelWidth * SCREEN_DPI / oneInchInMm;
+        double heightPx = labelHeight * SCREEN_DPI / oneInchInMm;
 
         gc.setFill(Color.WHITE);
         gc.fillRect(0,0, widthPx, heightPx);
@@ -38,7 +39,6 @@ public class LabelPreview {
         gc.setStroke(Color.BLACK);
         gc.strokeRect(0,0,widthPx, heightPx);
 
-        gc.setFill(Color.BLACK);
     }
 
     private double[] getLabelWidthAndHeight(List<TSPLCommand> commands) {
@@ -54,6 +54,20 @@ public class LabelPreview {
     }
 
     private void drawLabelElements(GraphicsContext gc, List<TSPLCommand> commands) {
+        for (TSPLCommand command : commands) {
+            if (command instanceof TextCommand text) {
+                double x = d2p(text.getX());
+                double y = d2p(text.getY());
 
+//                double fontSize = d2p(text.getFont())
+
+                gc.setFill(Color.BLACK);
+                gc.fillText(text.getContent(), x, y);
+            }
+        }
+    }
+
+    private double d2p(int dots) {
+        return dots * (SCREEN_DPI / PRINTER_DPI);
     }
 }

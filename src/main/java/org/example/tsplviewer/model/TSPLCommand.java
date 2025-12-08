@@ -4,7 +4,7 @@ import java.util.List;
 
 public class TSPLCommand {
 
-    private String name;
+    protected String name;
     private List<String> params;
 
     public TSPLCommand(String name, List<String> params) {
