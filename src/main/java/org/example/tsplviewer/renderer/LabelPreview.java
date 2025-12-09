@@ -2,6 +2,8 @@ package org.example.tsplviewer.renderer;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import org.example.tsplviewer.model.*;
 
 import java.util.List;
@@ -51,6 +53,7 @@ public class LabelPreview {
     }
 
     private void drawLabelElements(GraphicsContext gc, List<TSPLCommand> commands) {
+        // change to switch case?
         for (TSPLCommand command : commands) {
             if (command instanceof TextCommand text) {
                 drawTextElement(gc, text);
@@ -70,11 +73,18 @@ public class LabelPreview {
     private void drawTextElement(GraphicsContext gc, TextCommand text) {
         double x = d2p(text.getX());
         double y = d2p(text.getY());
+        double baseDotHeight = 3.5;
+        double fontSize = d2p((int) (baseDotHeight * text.getyMultiplication()));
 
-//                double fontSize = d2p(text.getFont())
-
+        gc.setFont(Font.font("Arial", fontSize));
         gc.setFill(Color.BLACK);
-        gc.fillText(text.getContent(), x, y);
+
+        Text tempText = new Text(text.getContent());
+        tempText.setFont(Font.font("Arial", fontSize));
+        double ascent = tempText.getLayoutBounds().getHeight();
+        double yBaseline = y + ascent;
+
+        gc.fillText(text.getContent(), x, yBaseline);
     }
 
     private void drawBoxElement(GraphicsContext gc, BoxCommand box) {
@@ -87,7 +97,6 @@ public class LabelPreview {
 
         gc.setStroke(Color.BLACK);
         gc.strokeRect(x, y, width, height);
-
     }
 
     private void drawBarElement(GraphicsContext gc, BarCommand bar) {

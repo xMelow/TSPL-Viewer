@@ -6,7 +6,6 @@ public class TextCommand extends TSPLCommand {
 
     private int x;
     private int y;
-    // change datatype?
     private String font;
     private int rotation;
     private int xMultiplication;

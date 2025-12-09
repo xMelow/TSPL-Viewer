@@ -35,6 +35,7 @@ public class AppController {
             List<String> errors = tsplParser.validate(newText);
 
             GraphicsContext gc = previewCanvas.getGraphicsContext2D();
+            // clear the label preview
             labelPreview.render(commands, gc);
 
             validationArea.setText(String.join("\n", errors));
