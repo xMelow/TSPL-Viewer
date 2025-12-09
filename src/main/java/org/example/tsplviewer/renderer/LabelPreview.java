@@ -3,12 +3,11 @@ package org.example.tsplviewer.renderer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import org.example.tsplviewer.model.TSPLCommand;
-import org.example.tsplviewer.model.TextCommand;
+import javafx.scene.text.Text;
+import org.example.tsplviewer.model.*;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class LabelPreview {
 
@@ -54,17 +53,71 @@ public class LabelPreview {
     }
 
     private void drawLabelElements(GraphicsContext gc, List<TSPLCommand> commands) {
+        // change to switch case?
         for (TSPLCommand command : commands) {
             if (command instanceof TextCommand text) {
-                double x = d2p(text.getX());
-                double y = d2p(text.getY());
-
-//                double fontSize = d2p(text.getFont())
-
-                gc.setFill(Color.BLACK);
-                gc.fillText(text.getContent(), x, y);
+                drawTextElement(gc, text);
+            }
+            if (command instanceof BoxCommand box) {
+                drawBoxElement(gc, box);
+            }
+            if (command instanceof BarCommand bar) {
+                drawBarElement(gc, bar);
+            }
+            if (command instanceof CircleCommand circle) {
+                drawCircleElement(gc, circle);
             }
         }
+    }
+
+    private void drawTextElement(GraphicsContext gc, TextCommand text) {
+        double x = d2p(text.getX());
+        double y = d2p(text.getY());
+        double baseDotHeight = 3.5;
+        double fontSize = d2p((int) (baseDotHeight * text.getyMultiplication()));
+
+        gc.setFont(Font.font("Arial", fontSize));
+        gc.setFill(Color.BLACK);
+
+        Text tempText = new Text(text.getContent());
+        tempText.setFont(Font.font("Arial", fontSize));
+        double ascent = tempText.getLayoutBounds().getHeight();
+        double yBaseline = y + ascent;
+
+        gc.fillText(text.getContent(), x, yBaseline);
+    }
+
+    private void drawBoxElement(GraphicsContext gc, BoxCommand box) {
+        double x = d2p(box.getX());
+        double y = d2p(box.getY());
+        double xEnd = d2p(box.getxEnd());
+        double yEnd = d2p(box.getyEnd());
+        double width = xEnd - x;
+        double height = yEnd - y;
+
+        gc.setStroke(Color.BLACK);
+        gc.strokeRect(x, y, width, height);
+    }
+
+    private void drawBarElement(GraphicsContext gc, BarCommand bar) {
+        double x = d2p(bar.getX());
+        double y = d2p(bar.getY());
+        double width = d2p(bar.getWidth());
+        double height = d2p(bar.getHeight());
+
+        gc.setStroke(Color.BLACK);
+        gc.fillRect(x, y, width, height);
+    }
+
+    private void drawCircleElement(GraphicsContext gc, CircleCommand circle) {
+        double x = d2p(circle.getxStart());
+        double y = d2p(circle.getyStart());
+        double d = d2p(circle.getDiameter());
+        double thickness = d2p(circle.getThickness());
+
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(thickness);
+        gc.strokeOval(x, y, d, d);
     }
 
     private double d2p(int dots) {
