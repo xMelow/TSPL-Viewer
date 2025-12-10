@@ -1,6 +1,7 @@
 package org.example.tsplviewer.renderer;
 
 import com.google.zxing.EncodeHintType;
+import com.google.zxing.oned.Code128Writer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -69,6 +70,7 @@ public class LabelPreview {
                 case BarCommand bar -> drawBarElement(gc, bar);
                 case CircleCommand circle -> drawCircleElement(gc, circle);
                 case QRCodeCommand qr -> drawQrElement(gc, qr);
+                case BarcodeElement barcode -> drawBarcodeElement(gc, barcode);
                 default -> { //do nothing yet
                 }
             }
@@ -164,6 +166,41 @@ public class LabelPreview {
                 }
             }
         } catch (WriterException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void drawBarcodeElement(GraphicsContext gc, BarcodeElement barcode) {
+        try {
+            double startX = d2p(barcode.getX());
+            double startY = d2p(barcode.getY());
+            double widePx = d2p(barcode.getWide());
+            double narrowPx = d2p(barcode.getNarrow());
+            double barHeight = d2p(barcode.getHeight());
+
+            Code128Writer writer = new Code128Writer();
+
+            BitMatrix matrix = writer.encode(
+                    barcode.getContent(),
+                    BarcodeFormat.CODE_128,
+                    (int) (barcode.getContent().length() * widePx * 1), // rough width change when needed
+                    (int) barHeight
+            );
+            gc.save();
+            gc.setFill(Color.BLACK);
+
+            int matrixWidth = matrix.getWidth();
+            int matrixHeight = matrix.getHeight();
+            double moduleWidth = (narrowPx + widePx) / 2; //approximate change if needed
+
+            for (int x = 0; x < matrixWidth; x++) {
+                for (int y = 0; y < matrixHeight; y++) {
+                    if (matrix.get(x, y)) {
+                        gc.fillRect(startX + x * moduleWidth, startY + y, moduleWidth, barHeight);
+                    }
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
