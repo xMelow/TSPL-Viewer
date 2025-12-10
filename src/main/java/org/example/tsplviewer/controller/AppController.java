@@ -7,7 +7,6 @@ import javafx.scene.control.TextArea;
 import org.example.tsplviewer.model.TSPLCommand;
 import org.example.tsplviewer.parser.TSPLParser;
 import org.example.tsplviewer.renderer.LabelPreview;
-
 import java.util.List;
 
 public class AppController {

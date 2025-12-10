@@ -1,6 +1,7 @@
 package org.example.tsplviewer.parser;
 
 import org.example.tsplviewer.model.*;
+import org.example.tsplviewer.model.commands.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,7 @@ public class TSPLParser {
             case "BOX" -> new BoxCommand(name, params);
             case "BAR" -> new BarCommand(name, params);
             case "CIRCLE" -> new CircleCommand(name, params);
+            case "QRCODE" -> new QRCodeCommand(name, params);
             default -> new TSPLCommand(name, params);
         };
     }

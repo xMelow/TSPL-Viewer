@@ -1,12 +1,21 @@
 package org.example.tsplviewer.renderer;
 
+import com.google.zxing.EncodeHintType;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import org.example.tsplviewer.model.*;
+import org.example.tsplviewer.model.commands.*;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.google.zxing.common.BitMatrix;
 
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class LabelPreview {
@@ -53,19 +62,15 @@ public class LabelPreview {
     }
 
     private void drawLabelElements(GraphicsContext gc, List<TSPLCommand> commands) {
-        // change to switch case?
         for (TSPLCommand command : commands) {
-            if (command instanceof TextCommand text) {
-                drawTextElement(gc, text);
-            }
-            if (command instanceof BoxCommand box) {
-                drawBoxElement(gc, box);
-            }
-            if (command instanceof BarCommand bar) {
-                drawBarElement(gc, bar);
-            }
-            if (command instanceof CircleCommand circle) {
-                drawCircleElement(gc, circle);
+            switch (command) {
+                case TextCommand text -> drawTextElement(gc, text);
+                case BoxCommand box -> drawBoxElement(gc, box);
+                case BarCommand bar -> drawBarElement(gc, bar);
+                case CircleCommand circle -> drawCircleElement(gc, circle);
+                case QRCodeCommand qr -> drawQrElement(gc, qr);
+                default -> { //do nothing yet
+                }
             }
         }
     }
@@ -73,7 +78,7 @@ public class LabelPreview {
     private void drawTextElement(GraphicsContext gc, TextCommand text) {
         double x = d2p(text.getX());
         double y = d2p(text.getY());
-        double baseDotHeight = 3.5;
+        double baseDotHeight = 3.6;
         double fontSize = d2p((int) (baseDotHeight * text.getyMultiplication()));
 
         gc.setFont(Font.font("Arial", fontSize));
@@ -118,6 +123,49 @@ public class LabelPreview {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(thickness);
         gc.strokeOval(x, y, d, d);
+    }
+
+    private void drawQrElement(GraphicsContext gc, QRCodeCommand qr) {
+        try {
+            ErrorCorrectionLevel ecc = switch (qr.getEccLevel()) {
+                case "L" -> ErrorCorrectionLevel.L;
+                case "Q" -> ErrorCorrectionLevel.Q;
+                case "H" -> ErrorCorrectionLevel.H;
+                default -> ErrorCorrectionLevel.M;
+            };
+
+            Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
+            hints.put(EncodeHintType.MARGIN, 0);
+            hints.put(EncodeHintType.ERROR_CORRECTION, ecc);
+
+            QRCodeWriter qrWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrWriter.encode(
+                    qr.getContent(),
+                    BarcodeFormat.QR_CODE,
+                    0,0,
+                    hints
+            );
+
+            double startX = d2p(qr.getX());
+            double startY = d2p(qr.getY());
+            double cellSize = d2p(qr.getCellWidth());
+
+            int width = bitMatrix.getWidth();
+            int height = bitMatrix.getHeight();
+
+            gc.setFill(Color.BLACK);
+            for (int row = 0; row < height; row++) {
+                for (int col = 0; col < width; col++) {
+                    if (bitMatrix.get(col, row)) {
+                        double px = startX + col * cellSize;
+                        double yx = startY + row * cellSize;
+                        gc.fillRect(px, yx, cellSize, cellSize);
+                    }
+                }
+            }
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
     }
 
     private double d2p(int dots) {

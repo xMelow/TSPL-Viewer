@@ -1,8 +1,10 @@
-package org.example.tsplviewer.model;
+package org.example.tsplviewer.model.commands;
+
+import org.example.tsplviewer.model.TSPLCommand;
 
 import java.util.List;
 
-public class CircleCommand extends TSPLCommand{
+public class CircleCommand extends TSPLCommand {
 
     private int xStart;
     private int yStart;
