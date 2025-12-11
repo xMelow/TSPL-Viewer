@@ -2,6 +2,7 @@ package org.example.tsplviewer.renderer;
 
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.oned.Code128Writer;
+import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -71,6 +72,7 @@ public class LabelPreview {
                 case CircleCommand circle -> drawCircleElement(gc, circle);
                 case QRCodeCommand qr -> drawQrElement(gc, qr);
                 case BarcodeCommand barcode -> drawBarcodeElement(gc, barcode);
+                case BlockCommand block -> drawBlockElement(gc, block);
                 default -> { //do nothing yet
                 }
             }
@@ -231,6 +233,39 @@ public class LabelPreview {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void drawBlockElement(GraphicsContext gc, BlockCommand block) {
+        double x = d2p(block.getX());
+        double y = d2p(block.getY());
+        double width = d2p(block.getWidth());
+        double height = d2p(block.getHeight());
+
+        double baseDotHeight = 3.6;
+        double fontSize = d2p((int) (baseDotHeight * block.getyMultiplication()));
+
+        gc.setFont(Font.font("Arial", fontSize));
+
+        gc.save();
+
+        gc.setStroke(Color.GREEN);
+        gc.setLineWidth(1);
+        gc.strokeRect(x, y, width, height);
+
+        gc.setFill(Color.BLACK);
+        gc.setTextBaseline(VPos.TOP);
+
+        String[] lines = block.getContent().split("\n");
+        double lineHeight = fontSize * 1.2;
+        double yCursor = y;
+
+        for (String line: lines) {
+            gc.fillText(line, x, yCursor);
+            yCursor += lineHeight;
+
+            if (yCursor - y > height) break;
+        }
+        gc.restore();
     }
 
     private double d2p(int dots) {

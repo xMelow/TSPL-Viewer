@@ -27,7 +27,7 @@ public class BarcodeCommand extends TSPLCommand {
         this.rotation = Integer.parseInt(params.get(5));
         this.narrow = Integer.parseInt(params.get(6));
         this.wide = Integer.parseInt(params.get(7));
-        this.content = params.get(8).replace("\"", "");
+        this.content = params.get(8).replace("\"", ""); // parse the input (remove !10 from content)
     }
 
     public int getX() {

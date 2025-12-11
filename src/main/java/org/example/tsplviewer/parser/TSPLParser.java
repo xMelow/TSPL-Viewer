@@ -47,8 +47,9 @@ public class TSPLParser {
 
     private String getCommandName(String sentence) {
         if (sentence.isEmpty()) return "";
+        String cleanSentence = sentence.trim();
 
-        String[] parts = sentence.split("\\s+");
+        String[] parts = cleanSentence.split("\\s+");
 
         if (parts[0].equalsIgnoreCase("SET")) {
             if (parts.length >= 2) {
@@ -77,6 +78,7 @@ public class TSPLParser {
             case "CIRCLE" -> new CircleCommand(name, params);
             case "QRCODE" -> new QRCodeCommand(name, params);
             case "BARCODE" -> new BarcodeCommand(name, params);
+            case "BLOCK" -> new BlockCommand(name, params);
             default -> new TSPLCommand(name, params);
         };
     }
@@ -111,7 +113,6 @@ public class TSPLParser {
         // missing ""
         List<String> errors = new ArrayList<>();
 
-        // return error string list
         return errors;
     }
 }

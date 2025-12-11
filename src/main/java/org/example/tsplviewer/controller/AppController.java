@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextArea;
+import javafx.scene.paint.Color;
 import org.example.tsplviewer.model.TSPLCommand;
 import org.example.tsplviewer.parser.TSPLParser;
 import org.example.tsplviewer.renderer.LabelPreview;
@@ -33,11 +34,18 @@ public class AppController {
             List<TSPLCommand> commands = tsplParser.parse(newText);
             List<String> errors = tsplParser.validate(newText);
 
-            GraphicsContext gc = previewCanvas.getGraphicsContext2D();
-            // clear the label preview
-            labelPreview.render(commands, gc);
+            drawLabelPreview(commands);
 
             validationArea.setText(String.join("\n", errors));
         });
+    }
+
+    private void drawLabelPreview(List<TSPLCommand> commands) {
+        GraphicsContext gc = previewCanvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, previewCanvas.getWidth(), previewCanvas.getHeight());
+        gc.setLineWidth(1);
+        gc.setStroke(Color.BLACK);
+        gc.setFill(Color.BLACK);
+        labelPreview.render(commands, gc);
     }
 }
