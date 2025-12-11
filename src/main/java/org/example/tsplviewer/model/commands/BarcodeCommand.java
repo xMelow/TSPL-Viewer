@@ -4,7 +4,7 @@ import org.example.tsplviewer.model.TSPLCommand;
 
 import java.util.List;
 
-public class BarcodeElement extends TSPLCommand {
+public class BarcodeCommand extends TSPLCommand {
 
     private int x;
     private int y;
@@ -16,7 +16,7 @@ public class BarcodeElement extends TSPLCommand {
     private int wide;
     private String content;
 
-    public BarcodeElement(String name, List<String> params) {
+    public BarcodeCommand(String name, List<String> params) {
         super(name, params);
 
         this.x = Integer.parseInt(params.getFirst());

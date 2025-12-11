@@ -76,7 +76,7 @@ public class TSPLParser {
             case "BAR" -> new BarCommand(name, params);
             case "CIRCLE" -> new CircleCommand(name, params);
             case "QRCODE" -> new QRCodeCommand(name, params);
-            case "BARCODE" -> new BarcodeElement(name, params);
+            case "BARCODE" -> new BarcodeCommand(name, params);
             default -> new TSPLCommand(name, params);
         };
     }

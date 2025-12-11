@@ -70,7 +70,7 @@ public class LabelPreview {
                 case BarCommand bar -> drawBarElement(gc, bar);
                 case CircleCommand circle -> drawCircleElement(gc, circle);
                 case QRCodeCommand qr -> drawQrElement(gc, qr);
-                case BarcodeElement barcode -> drawBarcodeElement(gc, barcode);
+                case BarcodeCommand barcode -> drawBarcodeElement(gc, barcode);
                 default -> { //do nothing yet
                 }
             }
@@ -170,7 +170,7 @@ public class LabelPreview {
         }
     }
 
-    private void drawBarcodeElement(GraphicsContext gc, BarcodeElement barcode) {
+    private void drawBarcodeElement(GraphicsContext gc, BarcodeCommand barcode) {
         try {
             double startX = d2p(barcode.getX());
             double startY = d2p(barcode.getY());
@@ -183,23 +183,51 @@ public class LabelPreview {
             BitMatrix matrix = writer.encode(
                     barcode.getContent(),
                     BarcodeFormat.CODE_128,
-                    (int) (barcode.getContent().length() * widePx * 1), // rough width change when needed
+                    0,
                     (int) barHeight
             );
             gc.save();
             gc.setFill(Color.BLACK);
 
             int matrixWidth = matrix.getWidth();
-            int matrixHeight = matrix.getHeight();
-            double moduleWidth = (narrowPx + widePx) / 2; //approximate change if needed
+            double xCursor = startX;
 
-            for (int x = 0; x < matrixWidth; x++) {
-                for (int y = 0; y < matrixHeight; y++) {
-                    if (matrix.get(x, y)) {
-                        gc.fillRect(startX + x * moduleWidth, startY + y, moduleWidth, barHeight);
-                    }
+            for (int x = 0; x < matrixWidth; ) {
+
+                boolean isBar = matrix.get(x, 0);
+                int runLength = 1;
+
+                while (x + runLength < matrixWidth && matrix.get(x + runLength, 0) == isBar) {
+                    runLength++;
                 }
+
+                double drawWidth = (runLength == 3) ? widePx : narrowPx;
+
+                if (isBar) {
+                    gc.fillRect(xCursor, startY, drawWidth, barHeight);
+                }
+
+                xCursor += drawWidth;
+                x += runLength;
             }
+
+            gc.restore();
+
+            if (barcode.getHumanReadable() != 0) {
+                gc.setFill(Color.BLACK);
+                gc.setFont(Font.font("Arial", barHeight / 4));
+
+                Text t = new Text(barcode.getContent());
+                t.setFont(gc.getFont());
+                double textWidth = t.getBoundsInLocal().getWidth();
+
+                double barcodeWidth = xCursor - startX;
+                double textX = startX + (barcodeWidth - textWidth) / 2;
+                double textY = startY + barHeight + barHeight / 4;
+
+                gc.fillText(barcode.getContent(), textX, textY);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
