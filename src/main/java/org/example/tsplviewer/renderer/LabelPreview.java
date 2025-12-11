@@ -50,7 +50,6 @@ public class LabelPreview {
     }
 
     private SizeCommand getSizeCommand(List<TSPLCommand> commands) {
-
         return commands.stream()
                 .filter(c -> c instanceof SizeCommand)
                 .map(c -> (SizeCommand) c)
@@ -243,9 +242,10 @@ public class LabelPreview {
 
         gc.save();
 
-        gc.setStroke(Color.GREEN);
-        gc.setLineWidth(1);
-        gc.strokeRect(x, y, width, height);
+        // green outline for box size
+//        gc.setStroke(Color.GREEN);
+//        gc.setLineWidth(1);
+//        gc.strokeRect(x, y, width, height);
 
         gc.setFill(Color.BLACK);
         gc.setTextBaseline(VPos.TOP);

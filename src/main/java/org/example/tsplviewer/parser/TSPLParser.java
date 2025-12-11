@@ -80,12 +80,13 @@ public class TSPLParser {
             case "BARCODE" -> new BarcodeCommand(name, params);
             case "BLOCK" -> new BlockCommand(name, params);
             case "SIZE" -> new SizeCommand(name, params);
+            case "INPUT" -> new InputCommand(name, params);
             default -> new TSPLCommand(name, params);
         };
     }
 
     private String removeMetrics(String s) {
-        return s.replace(" mm ", "").trim();
+        return s.replace(" mm", "").trim();
     }
 
     private List<String> getParams(String sentence) {
@@ -98,6 +99,7 @@ public class TSPLParser {
         String cleanSentence = sentence.replace(commandName + " ", "").trim();
 
         if (cleanSentence.length() > 1) {
+            // what to do with SET COUNTER @0 +1
             String[] parts = cleanSentence.split(",");
             result.addAll(List.of(parts));
         } else {

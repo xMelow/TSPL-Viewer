@@ -10,22 +10,29 @@
 <?import javafx.scene.canvas.Canvas?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
+            stylesheets="@../css/styles.css"
+            styleClass="main-panel"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.tsplviewer.controller.AppController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="600.0" prefWidth="800.0">
 
     <center>
         <SplitPane dividerPositions="0.4" orientation="HORIZONTAL">
 
             <items>
-                <VBox spacing="5.0">
+                <VBox spacing="10.0">
                     <Label text="TSPL Code" />
-                    <TextArea fx:id="tsplTextArea" prefWidth="400" prefHeight="600" />
+                    <TextArea fx:id="tsplTextArea" prefWidth="800" prefHeight="600" />
                 </VBox>
 
                 <VBox spacing="5.0">
                     <Label text="Label Preview" />
-                    <Canvas fx:id="previewCanvas" width="600" height="400" style="-fx-border-color: black;"/>
+                    <Canvas fx:id="previewCanvas" width="300" height="400" style="-fx-border-color: black;"/>
+                </VBox>
+
+                <VBox spacing="5.0">
+                    <Label text="Variables" />
+                    <TextArea fx:id="variables" prefHeight="600"/>
                 </VBox>
             </items>
         </SplitPane>
