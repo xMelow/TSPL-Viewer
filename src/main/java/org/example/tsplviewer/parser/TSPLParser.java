@@ -79,12 +79,13 @@ public class TSPLParser {
             case "QRCODE" -> new QRCodeCommand(name, params);
             case "BARCODE" -> new BarcodeCommand(name, params);
             case "BLOCK" -> new BlockCommand(name, params);
+            case "SIZE" -> new SizeCommand(name, params);
             default -> new TSPLCommand(name, params);
         };
     }
 
     private String removeMetrics(String s) {
-        return s.replace(" mm", "").trim();
+        return s.replace(" mm ", "").trim();
     }
 
     private List<String> getParams(String sentence) {

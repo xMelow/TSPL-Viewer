@@ -35,13 +35,11 @@ public class LabelPreview {
     }
 
     private void drawLabelFormat(GraphicsContext gc, List<TSPLCommand> commands) {
-        double[] labelSize = getLabelWidthAndHeight(commands);
-        double labelWidth = labelSize[0];
-        double labelHeight = labelSize[1];
+        SizeCommand sizeCommand = getSizeCommand(commands);
         double oneInchInMm = 25.4;
 
-        double widthPx = labelWidth * SCREEN_DPI / oneInchInMm;
-        double heightPx = labelHeight * SCREEN_DPI / oneInchInMm;
+        double widthPx = sizeCommand.getWidth() * SCREEN_DPI / oneInchInMm;
+        double heightPx = sizeCommand.getHeight() * SCREEN_DPI / oneInchInMm;
 
         gc.setFill(Color.WHITE);
         gc.fillRect(0,0, widthPx, heightPx);
@@ -51,16 +49,13 @@ public class LabelPreview {
 
     }
 
-    private double[] getLabelWidthAndHeight(List<TSPLCommand> commands) {
+    private SizeCommand getSizeCommand(List<TSPLCommand> commands) {
+
         return commands.stream()
-                .filter(c -> Objects.equals(c.getName(), "SIZE"))
+                .filter(c -> c instanceof SizeCommand)
+                .map(c -> (SizeCommand) c)
                 .findFirst()
-                .map(c -> {
-                    double width = Double.parseDouble(c.getParams().get(0));
-                    double height = Double.parseDouble(c.getParams().get(1));
-                    return new double[]{width, height};
-                })
-                .orElse(new double[]{400, 200});
+                .orElse(null);
     }
 
     private void drawLabelElements(GraphicsContext gc, List<TSPLCommand> commands) {
