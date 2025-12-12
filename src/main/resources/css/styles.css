@@ -1,5 +1,64 @@
+
+
+            /* ---- Global ---- */
+
+* {
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-font-size: 13px;
+}
+
+.root {
+    -fx-background-color: #292929;
+}
+
+        /* ---- Containers ---- */
+
+.vbox, .hbox, .stack-panel {
+    -fx-padding: 10;
+}
+
+.label {
+    -fx-text-fill: #0d0d0d;
+    -fx-font-size: 100;
+}
+
 .main-panel {
     -fx-background-color: #1e1e1e;
-    -fx-border-color: #66ff66;
     -fx-border-width: 2;
+}
+
+.tspl-code {
+    -fx-padding: 10;
+}
+
+
+.label-preview {
+    -fx-padding: 10;
+}
+
+.variables {
+    -fx-padding: 10;
+}
+
+        /* ---- TextArea ---- */
+
+.text-area {
+    -fx-background-insets: 0;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d0d0d0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6;
+}
+
+.text-area:focused {
+    -fx-border-color: #4a90e2;
+}
+
+        /* ---- Canvas ---- */
+
+.canvas {
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
 }

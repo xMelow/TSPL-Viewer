@@ -14,32 +14,36 @@
             styleClass="main-panel"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.tsplviewer.controller.AppController"
-            prefHeight="600.0" prefWidth="800.0">
+            prefHeight="600.0" prefWidth="1200.0">
 
     <center>
-        <SplitPane dividerPositions="0.4" orientation="HORIZONTAL">
+        <SplitPane dividerPositions="0.25,0.75">
 
-            <items>
-                <VBox spacing="10.0">
-                    <Label text="TSPL Code" />
-                    <TextArea fx:id="tsplTextArea" prefWidth="800" prefHeight="600" />
-                </VBox>
+            <VBox spacing="10" minWidth="100" styleClass="tspl-code">
+                <Label text="TSPL Code"/>
+                <TextArea fx:id="tsplTextArea" prefHeight="450"/>
+            </VBox>
 
-                <VBox spacing="5.0">
-                    <Label text="Label Preview" />
-                    <Canvas fx:id="previewCanvas" width="300" height="400" style="-fx-border-color: black;"/>
-                </VBox>
+            <VBox spacing="5" minWidth="300" styleClass="label-preview">
+                <Label text="Label Preview"/>
 
-                <VBox spacing="5.0">
-                    <Label text="Variables" />
-                    <TextArea fx:id="variables" prefHeight="600"/>
-                </VBox>
-            </items>
+                <StackPane>
+                    <Canvas fx:id="previewCanvas" width="500" height="450"/>
+                </StackPane>
+            </VBox>
+
+            <VBox spacing="5" minWidth="150" styleClass="variables">
+                <Label text="Variables"/>
+                <TextArea fx:id="variables" prefHeight="450"/>
+            </VBox>
+
         </SplitPane>
     </center>
 
     <bottom>
-        <TextArea fx:id="validationArea" prefHeight="100" editable="false" style="-fx-font-family: monospace;" />
+        <VBox spacing="5">
+            <TextArea fx:id="validationArea" prefHeight="100" editable="false" style="-fx-font-family: monospace;" />
+        </VBox>
     </bottom>
 
 </BorderPane>
