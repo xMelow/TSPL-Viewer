@@ -1,58 +1,31 @@
-
-
-            /* ---- Global ---- */
+        /* ---- Global ---- */
 
 * {
-    -fx-font-family: "Segoe UI", "Inter", sans-serif;
-    -fx-font-size: 13px;
+    -fx-font-family: "SF Pro Text", "Segoe UI", sans-serif;
 }
 
-.root {
-    -fx-background-color: #292929;
-}
-
-        /* ---- Containers ---- */
-
-.vbox, .hbox, .stack-panel {
-    -fx-padding: 10;
-}
+        /* ---- Labels ---- */
 
 .label {
-    -fx-text-fill: #0d0d0d;
-    -fx-font-size: 100;
-}
-
-.main-panel {
-    -fx-background-color: #1e1e1e;
-    -fx-border-width: 2;
-}
-
-.tspl-code {
-    -fx-padding: 10;
-}
-
-
-.label-preview {
-    -fx-padding: 10;
-}
-
-.variables {
-    -fx-padding: 10;
+    -fx-text-fill: #222;
+    -fx-font-size: 17;
+    -fx-font-weight: 500;
+    -fx-padding: 5;
+    -fx-alignment: center;
 }
 
         /* ---- TextArea ---- */
 
 .text-area {
-    -fx-background-insets: 0;
-    -fx-background-color: #ffffff;
-    -fx-border-color: #d0d0d0;
-    -fx-border-radius: 6;
-    -fx-background-radius: 6;
-    -fx-padding: 6;
-}
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
 
-.text-area:focused {
-    -fx-border-color: #4a90e2;
+    -fx-background-insets: 0, 1;
+    -fx-border-color: rgba(255,255,255,0.4);
+    -fx-padding: 5;
+
+    -fx-focus-color: transparent;
+    -fx-text-box-border: transparent;
 }
 
         /* ---- Canvas ---- */
@@ -61,4 +34,19 @@
     -fx-border-color: #d0d0d0;
     -fx-border-width: 1;
     -fx-border-radius: 6;
+    -fx-padding: 5;
+}
+
+        /* ---- Containers ---- */
+
+.tspl-code, .label-preview, .variables {
+    -fx-padding: 10;
+}
+
+.tspl-code {
+    -fx-pref-width: 500;
+}
+
+.label-preview {
+    -fx-pref-width: 500;
 }

@@ -11,30 +11,28 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             stylesheets="@../css/styles.css"
-            styleClass="main-panel"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.tsplviewer.controller.AppController"
-            prefHeight="600.0" prefWidth="1200.0">
+            prefHeight="700.0" prefWidth="1200.0">
 
     <center>
-        <SplitPane dividerPositions="0.25,0.75">
+        <SplitPane>
 
-            <VBox spacing="10" minWidth="100" styleClass="tspl-code">
+            <VBox spacing="10" styleClass="tspl-code">
                 <Label text="TSPL Code"/>
                 <TextArea fx:id="tsplTextArea" prefHeight="450"/>
             </VBox>
 
-            <VBox spacing="5" minWidth="300" styleClass="label-preview">
+            <VBox spacing="5" styleClass="label-preview">
                 <Label text="Label Preview"/>
 
                 <StackPane>
-                    <Canvas fx:id="previewCanvas" width="500" height="450"/>
+                    <Canvas fx:id="previewCanvas" height="400" width="600"/>
                 </StackPane>
             </VBox>
 
-            <VBox spacing="5" minWidth="150" styleClass="variables">
+            <VBox spacing="5" styleClass="variables">
                 <Label text="Variables"/>
-                <TextArea fx:id="variables" prefHeight="450"/>
             </VBox>
 
         </SplitPane>
@@ -42,7 +40,7 @@
 
     <bottom>
         <VBox spacing="5">
-            <TextArea fx:id="validationArea" prefHeight="100" editable="false" style="-fx-font-family: monospace;" />
+            <TextArea fx:id="validationArea" prefHeight="100" editable="false" />
         </VBox>
     </bottom>
 
