@@ -18,28 +18,28 @@
     <center>
         <SplitPane>
 
-            <VBox spacing="10" styleClass="tspl-code">
+            <VBox spacing="10" styleClass="tspl-code" prefHeight="200">
                 <Label text="TSPL Code"/>
-                <TextArea fx:id="tsplTextArea" prefHeight="450"/>
+                <TextArea fx:id="tsplTextArea" prefHeight="600"/>
             </VBox>
 
             <VBox spacing="5" styleClass="label-preview">
                 <Label text="Label Preview"/>
 
-                <StackPane>
-                    <Canvas fx:id="previewCanvas" height="400" width="600"/>
+                <StackPane VBox.vgrow="ALWAYS">
+                    <Canvas fx:id="previewCanvas" height="600" width="600"/>
                 </StackPane>
             </VBox>
 
-            <VBox spacing="5" styleClass="variables">
-                <Label text="Variables"/>
+            <VBox spacing="5" styleClass="settings">
+                <Label text="Settings"/>
             </VBox>
 
         </SplitPane>
     </center>
 
     <bottom>
-        <VBox spacing="5">
+        <VBox spacing="5" styleClass="footer">
             <TextArea fx:id="validationArea" prefHeight="100" editable="false" />
         </VBox>
     </bottom>

@@ -1,10 +1,10 @@
-        /* ---- Global ---- */
+/* ---- Global ---- */
 
 * {
     -fx-font-family: "SF Pro Text", "Segoe UI", sans-serif;
 }
 
-        /* ---- Labels ---- */
+/* ---- Labels ---- */
 
 .label {
     -fx-text-fill: #222;
@@ -14,7 +14,7 @@
     -fx-alignment: center;
 }
 
-        /* ---- TextArea ---- */
+/* ---- TextArea ---- */
 
 .text-area {
     -fx-background-radius: 12;
@@ -28,7 +28,7 @@
     -fx-text-box-border: transparent;
 }
 
-        /* ---- Canvas ---- */
+/* ---- Canvas ---- */
 
 .canvas {
     -fx-border-color: #d0d0d0;
@@ -37,9 +37,9 @@
     -fx-padding: 5;
 }
 
-        /* ---- Containers ---- */
+/* ---- Containers ---- */
 
-.tspl-code, .label-preview, .variables {
+.tspl-code, .label-preview, .settings, .footer {
     -fx-padding: 10;
 }
 
