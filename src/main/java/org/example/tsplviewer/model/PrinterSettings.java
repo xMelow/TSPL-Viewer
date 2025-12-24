@@ -8,7 +8,7 @@ public class PrinterSettings {
     private List<Integer> size;
     private List<Integer> gap;
     private int density;
-    private int speed;
+    private float speed;
     private int direction;
 
     public PrinterSettings() {}
@@ -29,12 +29,12 @@ public class PrinterSettings {
         this.gap = convertStringListToIntList(gap);
     }
 
-    public void setDensity(int density) {
-        this.density = density;
+    public void setDensity(List<String> density) {
+        this.density = convertStringListToIntList(density).getFirst();;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
+    public void setSpeed(List<String> speed) {
+        this.speed = Float.parseFloat(speed.getFirst());
     }
 
     public void setDirection(int direction) {
@@ -53,7 +53,7 @@ public class PrinterSettings {
         return density;
     }
 
-    public int getSpeed() {
+    public float getSpeed() {
         return speed;
     }
 
