@@ -12,21 +12,17 @@ import org.example.tsplviewer.model.PrinterSettings;
 import org.example.tsplviewer.model.TSPLCommand;
 import org.example.tsplviewer.parser.TSPLParser;
 import org.example.tsplviewer.renderer.LabelPreview;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AppController {
 
-    @FXML
-    private TextArea tsplTextArea;
-
-    @FXML
-    private Canvas previewCanvas;
-
-    @FXML
-    private TextArea validationArea;
-
-    @FXML
-    private GridPane settingsGrid;
+    @FXML private TextArea tsplTextArea;
+    @FXML private Canvas previewCanvas;
+    @FXML private TextArea validationArea;
+    @FXML private GridPane settingsGrid;
 
     private final TSPLParser tsplParser;
     private final LabelPreview labelPreview;
@@ -66,26 +62,38 @@ public class AppController {
                 case "GAP" -> settings.setGap(cmd.getParams());
                 case "DENSITY" -> settings.setDensity(cmd.getParams());
                 case "SPEED" -> settings.setSpeed(cmd.getParams());
-//                case "DIRECTION" -> settings.setDirection(cmd.getParams());
+                case "DIRECTION" -> settings.setDirection(cmd.getParams());
+                case "SHIFT" -> settings.setShift(cmd.getParams());
+                case "OFFSET" -> settings.setOffset(cmd.getParams());
+                case "REFERENCE" -> settings.setReference(cmd.getParams());
             }
         }
         return settings;
     }
 
     private void displaySettings(PrinterSettings settings) {
-        // show the settings in on the javafx screen
         settingsGrid.getChildren().clear();
 
-        addSettingsRow("Size", settings.getSize().toString(), 0);
-        addSettingsRow("Gap", settings.getGap().toString(), 1);
-        addSettingsRow("Density", String.valueOf(settings.getDensity()), 2);
-        addSettingsRow("Speed", String.valueOf(settings.getSpeed()), 3);
+        addSettingsRow("Size: ", settings.getSize(), 0);
+        addSettingsRow("Gap: ", settings.getGap(), 1);
+        addSettingsRow("Reference: ", settings.getReference(), 2);
+        addSettingsRow("Speed: ", Collections.singletonList((int) settings.getSpeed()), 3);
+        addSettingsRow("Density", settings.getDensity(), 4);
+        addSettingsRow("Direction", settings.getDirection(), 5);
+        addSettingsRow("Shift", settings.getShift(), 6);
+        addSettingsRow("Offset", Collections.singletonList(settings.getOffset()), 7);
     }
 
-    private void addSettingsRow(String name, String value, int row) {
+    private void addSettingsRow(String name, List<Integer> values, int row) {
+        if (values == null || values.isEmpty()) return;
+
         Label label = new Label(name);
-        TextField textField = new TextField(value);
         settingsGrid.add(label, 0, row);
-        settingsGrid.add(textField, 1, row);
+
+        for (int i = 0; i < values.size(); i++) {
+            TextField field = new TextField(String.valueOf(values.get(i)));
+            field.setPrefWidth(60);
+            settingsGrid.add(field, i + 1, row);
+        }
     }
 }
