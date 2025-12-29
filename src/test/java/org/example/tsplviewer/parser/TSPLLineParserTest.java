@@ -143,6 +143,16 @@ public class TSPLLineParserTest {
     }
 
     @Test
+    void parseCounterCommandString() {
+        TSPLCommand cmd = parser.parseLine(
+                "SET COUNTER @0 +1"
+        );
+
+        assertEquals("COUNTER", cmd.getName());
+        assertEquals(List.of("@0", "+1"), cmd.getParams());
+    }
+
+    @Test
     void parseTextCommandString() {
         TSPLCommand cmd = parser.parseLine(
                 "TEXT 25,318,\"0\",0,10,10,\"Counter:\""
