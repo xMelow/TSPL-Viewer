@@ -13,13 +13,9 @@ public class TSPLParser {
 
     public List<TSPLCommand> parse(String tspl) {
         List<TSPLCommand> commands = new ArrayList<>();
-        boolean clsSeen = false;
 
         for (String line: tspl.split("\\r?\\n")) {
-            if (line.toUpperCase().contains("CLS")) {
-                clsSeen = true;
-            }
-            commands.add(lineParser.parseLine(line, clsSeen));
+            commands.add(lineParser.parseLine(line));
         }
         return commands;
     }

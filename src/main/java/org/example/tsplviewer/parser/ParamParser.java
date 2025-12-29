@@ -4,11 +4,14 @@ import java.util.List;
 
 public class ParamParser {
 
-    public List<String> parse(String line, String commandName, boolean drawMode) {
+    public List<String> parse(String line, String commandName) {
         // todo: types of parsing for type of command
         if (line.isBlank()) return List.of();
 
-        String clean = drawMode ? line : removeMetrics(line);
+        String clean = line;
+
+        if (line.contains("mm")) clean = removeMetrics(line);
+
         String paramPart = clean.replaceFirst(commandName, "").trim();
 
         if (paramPart.isEmpty()) return List.of();

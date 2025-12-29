@@ -9,9 +9,9 @@ public class TSPLLineParser {
     private final CommandFactory factory = new CommandFactory();
     private final ParamParser paramParser = new ParamParser();
 
-    public TSPLCommand parseLine(String line, boolean drawMode) {
+    public TSPLCommand parseLine(String line) {
         String name = extractCommandName(line);
-        List<String> params = paramParser.parse(line, name, drawMode);
+        List<String> params = paramParser.parse(line, name);
         return factory.create(name, params);
     }
 
