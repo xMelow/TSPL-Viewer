@@ -91,7 +91,7 @@ public class AppController {
         settingsGrid.add(label, 0, row);
 
         for (int i = 0; i < values.size(); i++) {
-            TextField field = new TextField(String.valueOf(values.get(i)));
+            Label field = new Label(String.valueOf(values.get(i)));
             field.setPrefWidth(60);
             settingsGrid.add(field, i + 1, row);
         }

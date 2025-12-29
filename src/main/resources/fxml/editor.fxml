@@ -34,8 +34,10 @@
             <VBox spacing="5" styleClass="settings">
                 <Label text="Print Settings"/>
                 <GridPane fx:id="settingsGrid">
-
                 </GridPane>
+                <VBox>
+                    <Label text="Variables" styleClass="variables"/>
+                </VBox>
             </VBox>
 
         </SplitPane>
