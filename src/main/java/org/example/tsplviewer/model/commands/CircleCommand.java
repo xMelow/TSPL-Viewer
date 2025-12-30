@@ -35,4 +35,14 @@ public class CircleCommand extends TSPLCommand {
     public int getThickness() {
         return thickness;
     }
+
+    @Override
+    public int minParams() {
+        return 4;
+    }
+
+    @Override
+    public int maxParams() {
+        return 4;
+    }
 }

@@ -36,8 +36,8 @@ public class AppController {
     public void initialize() {
         tsplTextArea.textProperty().addListener((obs, oldText, newText) -> {
             List<TSPLCommand> commands = parser.parse(newText);
-
             List<ValidationError> errors = validator.validate(commands);
+
             validationArea.setText(errors.stream().map(ValidationError::toString).collect(Collectors.joining("\n")));
 
             drawLabelPreview(commands);
@@ -46,7 +46,6 @@ public class AppController {
             PrinterSettings settings = getLabelPrintSettings(commands);
 
             displaySettings(settings);
-
         });
     }
 

@@ -72,4 +72,14 @@ public class BarcodeCommand extends TSPLCommand {
     public String getContent() {
         return content;
     }
+
+    @Override
+    public int minParams() {
+        return 9;
+    }
+
+    @Override
+    public int maxParams() {
+        return 10;
+    }
 }

@@ -27,4 +27,14 @@ public class SizeCommand extends TSPLCommand {
     public int getHeight() {
         return height;
     }
+
+    @Override
+    public int minParams() {
+        return 2;
+    }
+
+    @Override
+    public int maxParams() {
+        return 2;
+    }
 }

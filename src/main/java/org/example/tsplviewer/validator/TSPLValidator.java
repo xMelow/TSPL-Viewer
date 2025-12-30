@@ -15,7 +15,9 @@ public class TSPLValidator {
     // check position on label
 
     private static final List<String> VALID_TSPL_COMMANDS = Arrays.asList(
-            "TEXT", "BLOCK", "BARCODE", "BAR", "CIRCLE", "COUNTER", "INPUT", "QRCODE", "SIZE", "BOX", "SIZE"
+            "SIZE", "GAP", "REFERENCE", "SPEED", "DENSITY", "RIBBON", "PEEL", "CUTTER", "PARTIAL_CUTTER", "TEAR", "REWIND", "DIRECTION", "SHIFT", "OFFSET", "PRINT",
+            "CLS", "TEXT", "BLOCK", "BARCODE", "BAR", "CIRCLE", "QRCODE", "BOX", "SIZE",
+            "COUNTER", "INPUT", "CODESPACE"
     );
 
     public List<ValidationError> validate(List<TSPLCommand> commands) {

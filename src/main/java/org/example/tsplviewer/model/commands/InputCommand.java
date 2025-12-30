@@ -23,4 +23,6 @@ public class InputCommand extends TSPLCommand {
     public String getVariableName() {
         return variableName;
     }
+
+
 }

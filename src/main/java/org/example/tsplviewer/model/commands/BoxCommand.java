@@ -41,4 +41,14 @@ public class BoxCommand extends TSPLCommand {
     public int getThickness() {
         return thickness;
     }
+
+    @Override
+    public int minParams() {
+        return 5;
+    }
+
+    @Override
+    public int maxParams() {
+        return 6;
+    }
 }

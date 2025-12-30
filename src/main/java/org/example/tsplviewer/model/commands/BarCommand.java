@@ -35,4 +35,14 @@ public class BarCommand extends TSPLCommand {
     public int getHeight() {
         return height;
     }
+
+    @Override
+    public int minParams() {
+        return 4;
+    }
+
+    @Override
+    public int maxParams() {
+        return 4;
+    }
 }
