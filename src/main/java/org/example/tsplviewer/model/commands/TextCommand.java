@@ -51,6 +51,16 @@ public class TextCommand extends TSPLCommand {
     }
 
     @Override
+    public int minParams() {
+        return 7;
+    }
+
+    @Override
+    public int maxParams() {
+        return 8;
+    }
+
+    @Override
     public String toString() {
         return name + ": (" + x + "," + y + ") " + content;
     }

@@ -20,6 +20,6 @@ public class ValidationError {
 
     @Override
     public String toString() {
-        return "Line: " + line + " | " + message;
+        return "Line " + line + " : " + message;
     }
 }
