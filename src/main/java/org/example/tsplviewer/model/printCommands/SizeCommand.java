@@ -1,4 +1,4 @@
-package org.example.tsplviewer.model.commands;
+package org.example.tsplviewer.model.printCommands;
 
 import org.example.tsplviewer.model.TSPLCommand;
 
@@ -6,8 +6,8 @@ import java.util.List;
 
 public class SizeCommand extends TSPLCommand {
 
-    private int width;
-    private int height;
+    private float width;
+    private float height;
 
     public SizeCommand(String name, List<String> params) {
         super(name, params);
@@ -16,15 +16,15 @@ public class SizeCommand extends TSPLCommand {
         this.height = parseParam(params.get(1));
     }
 
-    private int parseParam(String param) {
-        return Integer.parseInt(param.replaceAll("[^0-9]", ""));
+    private float parseParam(String param) {
+        return Float.parseFloat(param.replaceAll("[^0-9]", ""));
     }
 
-    public int getWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 

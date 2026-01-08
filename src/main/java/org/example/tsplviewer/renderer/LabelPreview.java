@@ -8,26 +8,24 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import org.example.tsplviewer.model.*;
-import org.example.tsplviewer.model.commands.*;
+import org.example.tsplviewer.model.drawCommands.*;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.common.BitMatrix;
+import org.example.tsplviewer.model.printCommands.SizeCommand;
 
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class LabelPreview {
 
     private static final double PRINTER_DPI = 300.0;
     private static final double SCREEN_DPI = 96.0;
 
-    public LabelPreview() {
-
-    }
+    public LabelPreview() {}
 
     public void render(List<TSPLCommand> commands, GraphicsContext gc) {
         drawLabelFormat(gc, commands);
@@ -242,10 +240,10 @@ public class LabelPreview {
 
         gc.save();
 
-        // green outline for box size
-//        gc.setStroke(Color.GREEN);
-//        gc.setLineWidth(1);
-//        gc.strokeRect(x, y, width, height);
+//         green outline for box size
+        gc.setStroke(Color.GREEN);
+        gc.setLineWidth(1);
+        gc.strokeRect(x, y, width, height);
 
         gc.setFill(Color.BLACK);
         gc.setTextBaseline(VPos.TOP);

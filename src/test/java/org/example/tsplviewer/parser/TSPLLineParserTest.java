@@ -1,7 +1,6 @@
 package org.example.tsplviewer.parser;
 
 import org.example.tsplviewer.model.TSPLCommand;
-import org.example.tsplviewer.model.commands.BarCommand;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

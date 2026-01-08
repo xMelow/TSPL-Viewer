@@ -1,7 +1,9 @@
 package org.example.tsplviewer.parser;
 
 import org.example.tsplviewer.model.TSPLCommand;
-import org.example.tsplviewer.model.commands.*;
+import org.example.tsplviewer.model.codeCommands.InputCommand;
+import org.example.tsplviewer.model.drawCommands.*;
+import org.example.tsplviewer.model.printCommands.SizeCommand;
 
 import java.util.List;
 
