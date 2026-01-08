@@ -1,9 +1,7 @@
 package org.example.tsplviewer.parser;
 
 import org.example.tsplviewer.model.*;
-import org.example.tsplviewer.model.commands.*;
 
-import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.List;
 

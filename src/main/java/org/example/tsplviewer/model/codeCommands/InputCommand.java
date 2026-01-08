@@ -1,4 +1,4 @@
-package org.example.tsplviewer.model.commands;
+package org.example.tsplviewer.model.codeCommands;
 
 import org.example.tsplviewer.model.TSPLCommand;
 
@@ -23,4 +23,6 @@ public class InputCommand extends TSPLCommand {
     public String getVariableName() {
         return variableName;
     }
+
+
 }

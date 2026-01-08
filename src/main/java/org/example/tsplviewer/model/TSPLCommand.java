@@ -20,6 +20,14 @@ public class TSPLCommand {
         return params;
     }
 
+    public int minParams() {
+        return 0;
+    }
+
+    public int maxParams() {
+        return Integer.MAX_VALUE;
+    }
+
     @Override
     public String toString() {
         return "command name: " + name + " Params: " + params;

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PrinterSettings {
 
-    private List<Integer> size;
+    private List<Float> size;
     private List<Integer> gap;
     private List<Integer> density;
     private float speed;

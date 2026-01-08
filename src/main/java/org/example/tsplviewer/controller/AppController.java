@@ -10,12 +10,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import org.example.tsplviewer.model.PrinterSettings;
 import org.example.tsplviewer.model.TSPLCommand;
+import org.example.tsplviewer.model.ValidationError;
 import org.example.tsplviewer.parser.TSPLParser;
 import org.example.tsplviewer.renderer.LabelPreview;
+import org.example.tsplviewer.validator.TSPLValidator;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AppController {
 
@@ -24,24 +27,25 @@ public class AppController {
     @FXML private TextArea validationArea;
     @FXML private GridPane settingsGrid;
 
-    private final TSPLParser tsplParser;
-    private final LabelPreview labelPreview;
+    private final TSPLParser parser = new TSPLParser();
+    private final TSPLValidator validator = new TSPLValidator();
+    private final LabelPreview labelPreview = new LabelPreview();
 
-    public AppController() {
-        tsplParser = new TSPLParser();
-        labelPreview = new LabelPreview();
-    }
+    public AppController() {}
 
     public void initialize() {
         tsplTextArea.textProperty().addListener((obs, oldText, newText) -> {
-            List<TSPLCommand> commands = tsplParser.parse(newText);
-            List<String> errors = tsplParser.validate(newText);
+            List<TSPLCommand> commands = parser.parse(newText);
+            List<ValidationError> errors = validator.validate(commands);
+
+            validationArea.setText(errors.stream().map(ValidationError::toString).collect(Collectors.joining("\n")));
 
             drawLabelPreview(commands);
-            PrinterSettings settings = getLabelPrintSettings(commands);
-            displaySettings(settings);
 
-            validationArea.setText(String.join("\n", errors));
+            // CHANGE TO USE COMMANDS
+            PrinterSettings settings = getLabelPrintSettings(commands);
+
+            displaySettings(settings);
         });
     }
 

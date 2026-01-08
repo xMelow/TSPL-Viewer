@@ -1,7 +1,9 @@
 package org.example.tsplviewer.parser;
 
 import org.example.tsplviewer.model.TSPLCommand;
-import org.example.tsplviewer.model.commands.*;
+import org.example.tsplviewer.model.codeCommands.InputCommand;
+import org.example.tsplviewer.model.drawCommands.*;
+import org.example.tsplviewer.model.printCommands.*;
 
 import java.util.List;
 
@@ -16,7 +18,16 @@ public class CommandFactory {
             case "QRCODE" -> new QRCodeCommand(name, params);
             case "BARCODE" -> new BarcodeCommand(name, params);
             case "BLOCK" -> new BlockCommand(name, params);
+
             case "SIZE" -> new SizeCommand(name, params);
+            case "DENSITY" -> new DensityCommand(name, params);
+            case "GAP" -> new GapCommand(name, params);
+            case "SPEED" -> new SpeedCommand(name, params);
+            case "DIRECTION" -> new DirectionCommand(name, params);
+            case "SHIFT" -> new ShiftCommand(name, params);
+            case "OFFSET" -> new OffsetCommand(name, params);
+            case "REFERENCE" -> new ReferenceCommand(name, params);
+
             case "INPUT" -> new InputCommand(name, params);
             default -> new TSPLCommand(name, params);
         };

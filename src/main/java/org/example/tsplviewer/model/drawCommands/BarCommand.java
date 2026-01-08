@@ -1,4 +1,4 @@
-package org.example.tsplviewer.model.commands;
+package org.example.tsplviewer.model.drawCommands;
 
 import org.example.tsplviewer.model.TSPLCommand;
 
@@ -34,5 +34,15 @@ public class BarCommand extends TSPLCommand {
 
     public int getHeight() {
         return height;
+    }
+
+    @Override
+    public int minParams() {
+        return 4;
+    }
+
+    @Override
+    public int maxParams() {
+        return 4;
     }
 }
