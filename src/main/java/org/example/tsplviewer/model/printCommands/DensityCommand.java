@@ -1,0 +1,34 @@
+package org.example.tsplviewer.model.printCommands;
+
+import org.example.tsplviewer.model.TSPLCommand;
+
+import java.util.List;
+
+public class DensityCommand extends TSPLCommand {
+
+    private int density;
+
+    public DensityCommand(String name, List<String> params) {
+        super(name, params);
+
+        this.density = parseParam(params.getFirst());
+    }
+
+    private int parseParam(String param) {
+        return Integer.parseInt(param.replaceAll("[^0-9]", ""));
+    }
+
+    public float getDensity() {
+        return density;
+    }
+
+    @Override
+    public int minParams() {
+        return 1;
+    }
+
+    @Override
+    public int maxParams() {
+        return 1;
+    }
+}
