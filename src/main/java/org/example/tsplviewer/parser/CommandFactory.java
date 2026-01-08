@@ -24,6 +24,9 @@ public class CommandFactory {
             case "GAP" -> new GapCommand(name, params);
             case "SPEED" -> new SpeedCommand(name, params);
             case "DIRECTION" -> new DirectionCommand(name, params);
+            case "SHIFT" -> new ShiftCommand(name, params);
+            case "OFFSET" -> new OffsetCommand(name, params);
+            case "REFERENCE" -> new ReferenceCommand(name, params);
 
             case "INPUT" -> new InputCommand(name, params);
             default -> new TSPLCommand(name, params);
