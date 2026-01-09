@@ -11,9 +11,7 @@ import org.example.tsplviewer.model.TSPLAnalysisResult;
 import org.example.tsplviewer.model.TSPLAnalysisService;
 import org.example.tsplviewer.model.TSPLCommand;
 import org.example.tsplviewer.model.ValidationError;
-import org.example.tsplviewer.parser.TSPLParser;
 import org.example.tsplviewer.renderer.LabelPreview;
-import org.example.tsplviewer.validator.TSPLValidator;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,10 +33,13 @@ public class AppController {
         tsplTextArea.textProperty().addListener((obs, oldText, newText) -> {
             TSPLAnalysisResult result = analysisService.analyze(newText);
 
-            validationArea.setText(result.errors.stream().map(ValidationError::toString).collect(Collectors.joining("\n")));
-
-            drawLabelPreview(commands);
-            displaySettings(commands);
+            validationArea.setText(result.errors().stream()
+                    .map(ValidationError::toString)
+                    .collect(Collectors.joining("\n"))
+            );
+            
+            drawLabelPreview(result.drawCommands());
+            displaySettings(result.settingsCommands());
         });
     }
 
@@ -51,37 +52,24 @@ public class AppController {
         labelPreview.render(commands, gc);
     }
 
-//    private PrinterSettings getLabelPrintSettings(List<TSPLCommand> commands) {
-//        PrinterSettings settings = new PrinterSettings();
-//        for (TSPLCommand cmd : commands) {
-//            switch (cmd.getName().toUpperCase()) {
-//                case "SIZE" -> settings.setSize(cmd.getParams());
-//                case "GAP" -> settings.setGap(cmd.getParams());
-//                case "DENSITY" -> settings.setDensity(cmd.getParams());
-//                case "SPEED" -> settings.setSpeed(cmd.getParams());
-//                case "DIRECTION" -> settings.setDirection(cmd.getParams());
-//                case "SHIFT" -> settings.setShift(cmd.getParams());
-//                case "OFFSET" -> settings.setOffset(cmd.getParams());
-//                case "REFERENCE" -> settings.setReference(cmd.getParams());
-//            }
-//        }
-//        return settings;
-//    }
-
     private void displaySettings(List<TSPLCommand> commands) {
         settingsGrid.getChildren().clear();
 
-        addSettingsRow("Size: ", settings.getSize(), 0);
-        addSettingsRow("Gap: ", settings.getGap(), 1);
-        addSettingsRow("Reference: ", settings.getReference(), 2);
-        addSettingsRow("Speed: ", Collections.singletonList((int) settings.getSpeed()), 3);
-        addSettingsRow("Density", settings.getDensity(), 4);
-        addSettingsRow("Direction", settings.getDirection(), 5);
-        addSettingsRow("Shift", settings.getShift(), 6);
-        addSettingsRow("Offset", Collections.singletonList(settings.getOffset()), 7);
+        for (int i = 0; i < commands.size(); i++) {
+            addSettingsRow(commands.get(i).getName(), commands.get(i).getParams(), i);
+        }
+
+//        addSettingsRow("Size: ", settings.getSize(), 0);
+//        addSettingsRow("Gap: ", settings.getGap(), 1);
+//        addSettingsRow("Reference: ", settings.getReference(), 2);
+//        addSettingsRow("Speed: ", Collections.singletonList((int) settings.getSpeed()), 3);
+//        addSettingsRow("Density", settings.getDensity(), 4);
+//        addSettingsRow("Direction", settings.getDirection(), 5);
+//        addSettingsRow("Shift", settings.getShift(), 6);
+//        addSettingsRow("Offset", Collections.singletonList(settings.getOffset()), 7);
     }
 
-    private void addSettingsRow(String name, List<Integer> values, int row) {
+    private void addSettingsRow(String name, List<String> values, int row) {
         if (values == null || values.isEmpty()) return;
 
         Label label = new Label(name);

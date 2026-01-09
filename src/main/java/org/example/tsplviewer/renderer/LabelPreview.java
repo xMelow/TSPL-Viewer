@@ -34,8 +34,8 @@ public class LabelPreview {
 
     private void drawLabelFormat(GraphicsContext gc, List<TSPLCommand> commands) {
         SizeCommand sizeCommand = getSizeCommand(commands);
-        double oneInchInMm = 25.4;
 
+        double oneInchInMm = 25.4;
         double widthPx = sizeCommand.getWidth() * SCREEN_DPI / oneInchInMm;
         double heightPx = sizeCommand.getHeight() * SCREEN_DPI / oneInchInMm;
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 public record TSPLAnalysisResult (
     List<TSPLCommand> drawCommands,
-    List<TSPLCommand> printCommands,
+    List<TSPLCommand> settingsCommands,
     List<TSPLCommand> codeCommands,
     List<ValidationError> errors
 ) {}

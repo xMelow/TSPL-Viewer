@@ -12,24 +12,24 @@ public class CommandFactory {
 
     public TSPLCommand create(String name, List<String> params) {
         return switch (name.toUpperCase()) {
-            case "TEXT" -> new TextCommand(name, params);
-            case "BOX" -> new BoxCommand(name, params);
-            case "BAR" -> new BarCommand(name, params);
-            case "CIRCLE" -> new CircleCommand(name, params);
-            case "QRCODE" -> new QRCodeCommand(name, params);
-            case "BARCODE" -> new BarcodeCommand(name, params);
-            case "BLOCK" -> new BlockCommand(name, params);
+            case "TEXT" -> new TextCommand(name, params, CommandType.DRAW);
+            case "BOX" -> new BoxCommand(name, params, CommandType.DRAW);
+            case "BAR" -> new BarCommand(name, params, CommandType.DRAW);
+            case "CIRCLE" -> new CircleCommand(name, params, CommandType.DRAW);
+            case "QRCODE" -> new QRCodeCommand(name, params, CommandType.DRAW);
+            case "BARCODE" -> new BarcodeCommand(name, params, CommandType.DRAW);
+            case "BLOCK" -> new BlockCommand(name, params, CommandType.DRAW);
+            case "SIZE" -> new SizeCommand(name, params, CommandType.DRAW);
 
-            case "SIZE" -> new SizeCommand(name, params);
-            case "DENSITY" -> new DensityCommand(name, params);
-            case "GAP" -> new GapCommand(name, params);
-            case "SPEED" -> new SpeedCommand(name, params);
-            case "DIRECTION" -> new DirectionCommand(name, params);
-            case "SHIFT" -> new ShiftCommand(name, params);
-            case "OFFSET" -> new OffsetCommand(name, params);
-            case "REFERENCE" -> new ReferenceCommand(name, params);
+            case "DENSITY" -> new DensityCommand(name, params, CommandType.SETTING);
+            case "GAP" -> new GapCommand(name, params, CommandType.SETTING);
+            case "SPEED" -> new SpeedCommand(name, params, CommandType.SETTING);
+            case "DIRECTION" -> new DirectionCommand(name, params, CommandType.SETTING);
+            case "SHIFT" -> new ShiftCommand(name, params, CommandType.SETTING);
+            case "OFFSET" -> new OffsetCommand(name, params, CommandType.SETTING);
+            case "REFERENCE" -> new ReferenceCommand(name, params, CommandType.SETTING);
 
-            case "INPUT" -> new InputCommand(name, params);
+            case "INPUT" -> new InputCommand(name, params, CommandType.CODE);
             default -> new TSPLCommand(name, params, CommandType.UNKNOWN);
         };
     }
