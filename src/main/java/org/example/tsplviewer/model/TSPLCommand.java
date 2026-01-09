@@ -6,10 +6,16 @@ public class TSPLCommand {
 
     protected String name;
     private List<String> params;
+    private CommandType type;
 
-    public TSPLCommand(String name, List<String> params) {
+    public TSPLCommand(String name, List<String> params, CommandType type) {
         this.name = name;
         this.params = params;
+        this.type = type;
+    }
+
+    public CommandType getType() {
+        return type;
     }
 
     public String getName() {

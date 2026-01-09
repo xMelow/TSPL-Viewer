@@ -1,5 +1,6 @@
 package org.example.tsplviewer.parser;
 
+import org.example.tsplviewer.model.CommandType;
 import org.example.tsplviewer.model.TSPLCommand;
 import org.example.tsplviewer.model.codeCommands.InputCommand;
 import org.example.tsplviewer.model.drawCommands.*;
@@ -29,7 +30,7 @@ public class CommandFactory {
             case "REFERENCE" -> new ReferenceCommand(name, params);
 
             case "INPUT" -> new InputCommand(name, params);
-            default -> new TSPLCommand(name, params);
+            default -> new TSPLCommand(name, params, CommandType.UNKNOWN);
         };
     }
 }

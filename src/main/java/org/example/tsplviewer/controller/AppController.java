@@ -5,17 +5,16 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import org.example.tsplviewer.model.PrinterSettings;
+import org.example.tsplviewer.model.TSPLAnalysisResult;
+import org.example.tsplviewer.model.TSPLAnalysisService;
 import org.example.tsplviewer.model.TSPLCommand;
 import org.example.tsplviewer.model.ValidationError;
 import org.example.tsplviewer.parser.TSPLParser;
 import org.example.tsplviewer.renderer.LabelPreview;
 import org.example.tsplviewer.validator.TSPLValidator;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,25 +26,19 @@ public class AppController {
     @FXML private TextArea validationArea;
     @FXML private GridPane settingsGrid;
 
-    private final TSPLParser parser = new TSPLParser();
-    private final TSPLValidator validator = new TSPLValidator();
+    private final TSPLAnalysisService analysisService = new TSPLAnalysisService();
     private final LabelPreview labelPreview = new LabelPreview();
 
     public AppController() {}
 
     public void initialize() {
         tsplTextArea.textProperty().addListener((obs, oldText, newText) -> {
-            List<TSPLCommand> commands = parser.parse(newText);
-            List<ValidationError> errors = validator.validate(commands);
+            TSPLAnalysisResult result = analysisService.analyze(newText);
 
-            validationArea.setText(errors.stream().map(ValidationError::toString).collect(Collectors.joining("\n")));
+            validationArea.setText(result.errors.stream().map(ValidationError::toString).collect(Collectors.joining("\n")));
 
             drawLabelPreview(commands);
-
-            // CHANGE TO USE COMMANDS
-            PrinterSettings settings = getLabelPrintSettings(commands);
-
-            displaySettings(settings);
+            displaySettings(commands);
         });
     }
 
@@ -58,24 +51,24 @@ public class AppController {
         labelPreview.render(commands, gc);
     }
 
-    private PrinterSettings getLabelPrintSettings(List<TSPLCommand> commands) {
-        PrinterSettings settings = new PrinterSettings();
-        for (TSPLCommand cmd : commands) {
-            switch (cmd.getName().toUpperCase()) {
-                case "SIZE" -> settings.setSize(cmd.getParams());
-                case "GAP" -> settings.setGap(cmd.getParams());
-                case "DENSITY" -> settings.setDensity(cmd.getParams());
-                case "SPEED" -> settings.setSpeed(cmd.getParams());
-                case "DIRECTION" -> settings.setDirection(cmd.getParams());
-                case "SHIFT" -> settings.setShift(cmd.getParams());
-                case "OFFSET" -> settings.setOffset(cmd.getParams());
-                case "REFERENCE" -> settings.setReference(cmd.getParams());
-            }
-        }
-        return settings;
-    }
+//    private PrinterSettings getLabelPrintSettings(List<TSPLCommand> commands) {
+//        PrinterSettings settings = new PrinterSettings();
+//        for (TSPLCommand cmd : commands) {
+//            switch (cmd.getName().toUpperCase()) {
+//                case "SIZE" -> settings.setSize(cmd.getParams());
+//                case "GAP" -> settings.setGap(cmd.getParams());
+//                case "DENSITY" -> settings.setDensity(cmd.getParams());
+//                case "SPEED" -> settings.setSpeed(cmd.getParams());
+//                case "DIRECTION" -> settings.setDirection(cmd.getParams());
+//                case "SHIFT" -> settings.setShift(cmd.getParams());
+//                case "OFFSET" -> settings.setOffset(cmd.getParams());
+//                case "REFERENCE" -> settings.setReference(cmd.getParams());
+//            }
+//        }
+//        return settings;
+//    }
 
-    private void displaySettings(PrinterSettings settings) {
+    private void displaySettings(List<TSPLCommand> commands) {
         settingsGrid.getChildren().clear();
 
         addSettingsRow("Size: ", settings.getSize(), 0);

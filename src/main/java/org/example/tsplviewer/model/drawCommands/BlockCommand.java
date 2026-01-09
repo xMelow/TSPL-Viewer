@@ -1,5 +1,6 @@
 package org.example.tsplviewer.model.drawCommands;
 
+import org.example.tsplviewer.model.CommandType;
 import org.example.tsplviewer.model.TSPLCommand;
 
 import java.util.List;
@@ -17,8 +18,8 @@ public class BlockCommand extends TSPLCommand {
     private String content;
 
 
-    public BlockCommand(String name, List<String> params) {
-        super(name, params);
+    public BlockCommand(String name, List<String> params, CommandType type) {
+        super(name, params, type);
 
         this.x = Integer.parseInt(params.getFirst());
         this.y = Integer.parseInt(params.get(1));

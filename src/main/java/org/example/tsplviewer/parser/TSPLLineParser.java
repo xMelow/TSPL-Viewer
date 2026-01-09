@@ -16,7 +16,6 @@ public class TSPLLineParser {
     }
 
     private String extractCommandName(String line) {
-        //todo: parse on type of command
         if (line.isBlank()) return "";
 
         String[] parts = line.trim().split("\\s+");

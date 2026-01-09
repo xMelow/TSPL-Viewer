@@ -1,5 +1,6 @@
 package org.example.tsplviewer.model.drawCommands;
 
+import org.example.tsplviewer.model.CommandType;
 import org.example.tsplviewer.model.TSPLCommand;
 
 import java.util.List;
@@ -11,8 +12,8 @@ public class CircleCommand extends TSPLCommand {
     private int diameter;
     private int thickness;
 
-    public CircleCommand(String name, List<String> params) {
-        super(name, params);
+    public CircleCommand(String name, List<String> params, CommandType type) {
+        super(name, params, type);
 
         this.xStart = Integer.parseInt(params.getFirst());
         this.yStart = Integer.parseInt(params.get(1));

@@ -17,15 +17,4 @@ public class TSPLParser {
         }
         return commands;
     }
-
-    public List<String> validate(String tspl) {
-        // check for:
-        // missing params
-        // unknown commands
-        // invalid coordinates
-        // missing ""
-        List<String> errors = new ArrayList<>();
-
-        return errors;
-    }
 }
