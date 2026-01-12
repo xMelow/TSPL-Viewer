@@ -17,7 +17,7 @@ public class TSPLValidator {
     private static final List<String> VALID_TSPL_COMMANDS = Arrays.asList(
             "SIZE", "GAP", "REFERENCE", "SPEED", "DENSITY", "RIBBON", "PEEL", "CUTTER", "PARTIAL_CUTTER", "TEAR", "REWIND", "DIRECTION", "SHIFT", "OFFSET", "PRINT",
             "CLS", "TEXT", "BLOCK", "BARCODE", "BAR", "CIRCLE", "QRCODE", "BOX", "SIZE",
-            "COUNTER", "INPUT", "CODESPACE"
+            "COUNTER", "INPUT", "CODESPACE", "PUTBMP"
     );
 
     public List<ValidationError> validate(List<TSPLCommand> commands) {

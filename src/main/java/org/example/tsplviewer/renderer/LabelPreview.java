@@ -4,6 +4,7 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.oned.Code128Writer;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -65,6 +66,7 @@ public class LabelPreview {
                 case QRCodeCommand qr -> drawQrElement(gc, qr);
                 case BarcodeCommand barcode -> drawBarcodeElement(gc, barcode);
                 case BlockCommand block -> drawBlockElement(gc, block);
+                case PutBMPCommand image -> drawBMPElement(gc, image);
                 default -> { //do nothing yet
                 }
             }
@@ -259,6 +261,32 @@ public class LabelPreview {
             if (yCursor - y > height) break;
         }
         gc.restore();
+    }
+
+    private void drawBMPElement(GraphicsContext gc, PutBMPCommand bmp) {
+        double x = d2p(bmp.getX());
+        double y = d2p(bmp.getY());
+
+        try {
+            Image image = new Image(
+                    "file:" + bmp.getFilename(),
+                    false
+            );
+
+            double scale = SCREEN_DPI / PRINTER_DPI;
+
+            gc.drawImage(
+                    image,
+                    x,
+                    y,
+                    image.getWidth() * scale,
+                    image.getHeight() * scale
+            );
+
+        } catch (Exception e) {
+            System.err.println("Failed to load BMP: " + bmp.getFilename());
+            e.printStackTrace();
+        }
     }
 
     private double d2p(int dots) {

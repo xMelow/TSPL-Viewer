@@ -20,6 +20,7 @@ public class CommandFactory {
             case "BARCODE" -> new BarcodeCommand(name, params, CommandType.DRAW);
             case "BLOCK" -> new BlockCommand(name, params, CommandType.DRAW);
             case "SIZE" -> new SizeCommand(name, params, CommandType.DRAW);
+            case "PUTBMP" -> new PutBMPCommand(name, params, CommandType.DRAW);
 
             case "DENSITY" -> new DensityCommand(name, params, CommandType.SETTING);
             case "GAP" -> new GapCommand(name, params, CommandType.SETTING);
