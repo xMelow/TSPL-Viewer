@@ -37,7 +37,7 @@ public class AppController {
                     .map(ValidationError::toString)
                     .collect(Collectors.joining("\n"))
             );
-            
+
             drawLabelPreview(result.drawCommands());
             displaySettings(result.settingsCommands());
         });
@@ -58,15 +58,6 @@ public class AppController {
         for (int i = 0; i < commands.size(); i++) {
             addSettingsRow(commands.get(i).getName(), commands.get(i).getParams(), i);
         }
-
-//        addSettingsRow("Size: ", settings.getSize(), 0);
-//        addSettingsRow("Gap: ", settings.getGap(), 1);
-//        addSettingsRow("Reference: ", settings.getReference(), 2);
-//        addSettingsRow("Speed: ", Collections.singletonList((int) settings.getSpeed()), 3);
-//        addSettingsRow("Density", settings.getDensity(), 4);
-//        addSettingsRow("Direction", settings.getDirection(), 5);
-//        addSettingsRow("Shift", settings.getShift(), 6);
-//        addSettingsRow("Offset", Collections.singletonList(settings.getOffset()), 7);
     }
 
     private void addSettingsRow(String name, List<String> values, int row) {
