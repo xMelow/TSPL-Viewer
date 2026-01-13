@@ -33,23 +33,31 @@ public class LabelPreview {
         SizeCommand size = getSizeCommand(commands);
         if (size == null) return;
 
-        drawLabelFormat(gc, commands);
+        double oneInchInMm = 25.4;
+        double labelWidthPx = size.getWidth() * SCREEN_DPI / oneInchInMm;
+        double labelHeightPx = size.getHeight() * SCREEN_DPI / oneInchInMm;
+
+        double canvasWidth = gc.getCanvas().getWidth();
+        double canvasHeight = gc.getCanvas().getHeight();
+
+        double offsetX = (canvasWidth - labelWidthPx) / 2;
+        double offsetY = (canvasHeight - labelHeightPx) / 2;
+
+        gc.save();
+        gc.translate(offsetX, offsetY);
+
+        drawLabelFormat(gc, labelWidthPx, labelHeightPx);
         elementRenderer.render(gc, commands);
+
+        gc.restore();
     }
 
-    private void drawLabelFormat(GraphicsContext gc, List<TSPLCommand> commands) {
-        SizeCommand sizeCommand = getSizeCommand(commands);
-
-        double oneInchInMm = 25.4;
-        double widthPx = sizeCommand.getWidth() * SCREEN_DPI / oneInchInMm;
-        double heightPx = sizeCommand.getHeight() * SCREEN_DPI / oneInchInMm;
-
+    private void drawLabelFormat(GraphicsContext gc, double labelWidth, double labelHeight) {
         gc.setFill(Color.WHITE);
-        gc.fillRect(0,0, widthPx, heightPx);
+        gc.fillRect(0,0, labelWidth, labelHeight);
 
         gc.setStroke(Color.BLACK);
-        gc.strokeRect(0,0,widthPx, heightPx);
-
+        gc.strokeRect(0,0,labelWidth, labelHeight);
     }
 
     private SizeCommand getSizeCommand(List<TSPLCommand> commands) {
