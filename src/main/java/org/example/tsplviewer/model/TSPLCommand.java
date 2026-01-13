@@ -14,6 +14,20 @@ public class TSPLCommand {
         this.type = type;
     }
 
+    protected int parseInt(List<String> params, int index) {
+        return Integer.parseInt(params.get(index));
+    }
+
+    protected int parseInt(List<String> params, int index, int defaultValue) {
+        return index < params.size()
+                ? Integer.parseInt(params.get(index))
+                : defaultValue;
+    }
+
+    protected String stripQuotes(List<String> params, int index) {
+        return params.get(index).replace("\"", "");
+    }
+
     public CommandType getType() {
         return type;
     }
