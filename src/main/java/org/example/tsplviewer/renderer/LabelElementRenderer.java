@@ -20,7 +20,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.example.tsplviewer.renderer.DPI.d2p;
+import static org.example.tsplviewer.renderer.DPI.*;
 
 public class LabelElementRenderer {
 
@@ -223,7 +223,16 @@ public class LabelElementRenderer {
         double yCursor = y;
 
         for (String line: lines) {
-            gc.fillText(line, x, yCursor);
+            double xCursor = x;
+            
+            if (block.getAlign() == 2) {
+                Text temp = new Text(line);
+                temp.setFont(gc.getFont());
+                double textWidth = temp.getBoundsInLocal().getWidth();
+                xCursor = x + (width - textWidth) / 2;
+            }
+
+            gc.fillText(line, xCursor, yCursor);
             yCursor += lineHeight;
 
             if (yCursor - y > height) break;

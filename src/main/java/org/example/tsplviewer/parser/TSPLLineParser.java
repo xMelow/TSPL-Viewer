@@ -12,6 +12,7 @@ public class TSPLLineParser {
     public TSPLCommand parseLine(String line) {
         String name = extractCommandName(line);
         List<String> params = paramParser.parse(line, name);
+
         return factory.create(name, params);
     }
 

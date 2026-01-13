@@ -32,7 +32,7 @@ public class LabelPreview {
     public void render(List<TSPLCommand> commands, GraphicsContext gc) {
         SizeCommand size = getSizeCommand(commands);
         if (size == null) return;
-        
+
         drawLabelFormat(gc, commands);
         elementRenderer.render(gc, commands);
     }
