@@ -1,10 +1,12 @@
 package org.example.tsplviewer.controller;
 
+import com.sun.javafx.scene.control.InputField;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import org.example.tsplviewer.model.TSPLAnalysisResult;
@@ -14,7 +16,9 @@ import org.example.tsplviewer.model.ValidationError;
 import org.example.tsplviewer.renderer.LabelPreview;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class AppController {
@@ -23,6 +27,7 @@ public class AppController {
     @FXML private Canvas previewCanvas;
     @FXML private TextArea validationArea;
     @FXML private GridPane settingsGrid;
+    @FXML private GridPane variableGrid;
 
     private final TSPLAnalysisService analysisService = new TSPLAnalysisService();
     private final LabelPreview labelPreview = new LabelPreview();
@@ -40,6 +45,7 @@ public class AppController {
 
             drawLabelPreview(result.drawCommands());
             displaySettings(result.settingsCommands());
+            displayVariables(result.codeCommands(), result.drawCommands());
         });
     }
 
@@ -72,4 +78,41 @@ public class AppController {
             settingsGrid.add(field, i + 1, row);
         }
     }
+
+    private void displayVariables(List<TSPLCommand> codeCommands, List<TSPLCommand> drawCommands) {
+        variableGrid.getChildren().clear();
+
+        for (int i = 0; i < codeCommands.size(); i++) {
+            String prompt = codeCommands.get(i).getParams().getFirst().replaceAll("^\"|\"$", "");
+            String variableName = codeCommands.get(i).getParams().get(1);
+            addVariableRow(prompt, variableName, i, drawCommands);
+        }
+    }
+
+    private void addVariableRow(String prompt, String variableName, int row, List<TSPLCommand> drawCommands) {
+        if (prompt.isEmpty() || variableName.isEmpty()) return;
+
+        Label label = new Label(prompt);
+        variableGrid.add(label, 0, row);
+
+        TextField input = new TextField();
+        input.setPrefWidth(150);
+        variableGrid.add(input, 1, row);
+
+        input.textProperty().addListener((obs, oldVal, newVal) -> {
+            updatePreview(variableName, newVal, drawCommands);
+        });
+    }
+
+    private void updatePreview(String variableName, String newValue, List<TSPLCommand> drawCommands) {
+        for (TSPLCommand cmd : drawCommands) {
+            List<String> params = cmd.getParams();
+
+            if (params.getLast().equals(variableName.trim())) {
+                params.set(params.size() - 1, newValue);
+            }
+        }
+        drawLabelPreview(drawCommands);
+    }
+
 }

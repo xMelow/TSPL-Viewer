@@ -28,6 +28,12 @@ public class TSPLCommand {
         return params.get(index).replace("\"", "");
     }
 
+    protected void updateParam(String newValue, int index) {
+        String oldValue = params.get(index);
+        params.set(index, newValue);
+
+    }
+
     public CommandType getType() {
         return type;
     }

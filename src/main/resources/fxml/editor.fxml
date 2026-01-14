@@ -37,6 +37,8 @@
                 </GridPane>
                 <VBox>
                     <Label text="Variables" styleClass="variables"/>
+                    <GridPane fx:id="variableGrid">
+                    </GridPane>
                 </VBox>
             </VBox>
 

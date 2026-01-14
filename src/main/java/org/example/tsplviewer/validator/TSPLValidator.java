@@ -9,11 +9,6 @@ import java.util.List;
 
 public class TSPLValidator {
 
-    // check empty name + correct names
-    // check brackets and comma's --> parser?
-    // check parameters
-    // check position on label
-
     private static final List<String> VALID_TSPL_COMMANDS = Arrays.asList(
             "SIZE", "GAP", "REFERENCE", "SPEED", "DENSITY", "RIBBON", "PEEL", "CUTTER", "PARTIAL_CUTTER", "TEAR", "REWIND", "DIRECTION", "SHIFT", "OFFSET", "PRINT",
             "CLS", "TEXT", "BLOCK", "BARCODE", "BAR", "CIRCLE", "QRCODE", "BOX", "SIZE",
