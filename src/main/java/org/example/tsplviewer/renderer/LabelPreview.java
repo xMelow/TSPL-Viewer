@@ -1,25 +1,11 @@
 package org.example.tsplviewer.renderer;
 
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.oned.Code128Writer;
-import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import org.example.tsplviewer.model.*;
-import org.example.tsplviewer.model.drawCommands.*;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.qrcode.QRCodeWriter;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.google.zxing.common.BitMatrix;
-import org.example.tsplviewer.model.printCommands.SizeCommand;
+import org.example.tsplviewer.model.command.TSPLCommand;
+import org.example.tsplviewer.model.command.print.SizeCommand;
 
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.example.tsplviewer.renderer.DPI.SCREEN_DPI;
 

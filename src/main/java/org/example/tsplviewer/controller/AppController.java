@@ -1,6 +1,5 @@
 package org.example.tsplviewer.controller;
 
-import com.sun.javafx.scene.control.InputField;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -10,15 +9,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import org.example.tsplviewer.model.TSPLAnalysisResult;
-import org.example.tsplviewer.model.TSPLAnalysisService;
-import org.example.tsplviewer.model.TSPLCommand;
+import org.example.tsplviewer.service.TSPLAnalysisService;
+import org.example.tsplviewer.model.command.TSPLCommand;
 import org.example.tsplviewer.model.ValidationError;
+import org.example.tsplviewer.renderer.LabelElementRenderer;
 import org.example.tsplviewer.renderer.LabelPreview;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class AppController {
@@ -31,6 +28,7 @@ public class AppController {
 
     private final TSPLAnalysisService analysisService = new TSPLAnalysisService();
     private final LabelPreview labelPreview = new LabelPreview();
+    private final LabelElementRenderer elementRenderer = new LabelElementRenderer();
 
     public AppController() {}
 
@@ -99,8 +97,13 @@ public class AppController {
         input.setPrefWidth(150);
         variableGrid.add(input, 1, row);
 
-        input.textProperty().addListener((obs, oldVal, newVal) -> {
-            updatePreview(variableName, newVal, drawCommands);
+        // add hasmap for variables to keep updating the value
+
+        input.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (wasFocused && !isNowFocused) {
+                String newValue = input.getText();
+                updatePreview(variableName, newValue, drawCommands);
+            }
         });
     }
 
@@ -111,8 +114,9 @@ public class AppController {
             if (params.getLast().equals(variableName.trim())) {
                 params.set(params.size() - 1, newValue);
             }
+            System.out.println(params);
         }
-        drawLabelPreview(drawCommands);
+        elementRenderer.render();
     }
 
 }

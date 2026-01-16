@@ -1,0 +1,41 @@
+package org.example.tsplviewer.model.command.print;
+
+import org.example.tsplviewer.model.command.CommandType;
+import org.example.tsplviewer.model.command.TSPLCommand;
+
+import java.util.List;
+
+public class SizeCommand extends TSPLCommand {
+
+    private float width;
+    private float height;
+
+    public SizeCommand(String name, List<String> params, CommandType type) {
+        super(name, params, type);
+
+        this.width = parseParam(params.getFirst());
+        this.height = parseParam(params.get(1));
+    }
+
+    private float parseParam(String param) {
+        return Float.parseFloat(param.replaceAll("[^0-9]", ""));
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    @Override
+    public int minParams() {
+        return 2;
+    }
+
+    @Override
+    public int maxParams() {
+        return 2;
+    }
+}

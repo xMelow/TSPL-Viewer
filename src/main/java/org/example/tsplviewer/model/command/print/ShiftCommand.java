@@ -1,0 +1,41 @@
+package org.example.tsplviewer.model.command.print;
+
+import org.example.tsplviewer.model.command.CommandType;
+import org.example.tsplviewer.model.command.TSPLCommand;
+
+import java.util.List;
+
+public class ShiftCommand extends TSPLCommand {
+
+    private int x;
+    private int y;
+
+    public ShiftCommand(String name, List<String> params, CommandType type) {
+        super(name, params, type);
+
+        this.x = parseParam(params.getFirst());
+        this.y = parseParam(params.get(1));
+    }
+
+    private int parseParam(String param) {
+        return Integer.parseInt(param.replaceAll("[^0-9]", ""));
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public int minParams() {
+        return 1;
+    }
+
+    @Override
+    public int maxParams() {
+        return 2;
+    }
+}

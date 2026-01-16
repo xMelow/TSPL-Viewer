@@ -13,8 +13,8 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import org.example.tsplviewer.model.TSPLCommand;
-import org.example.tsplviewer.model.drawCommands.*;
+import org.example.tsplviewer.model.command.TSPLCommand;
+import org.example.tsplviewer.model.command.draw.*;
 
 import java.util.EnumMap;
 import java.util.List;

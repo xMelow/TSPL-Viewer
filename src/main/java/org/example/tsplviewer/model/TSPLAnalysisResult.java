@@ -1,5 +1,7 @@
 package org.example.tsplviewer.model;
 
+import org.example.tsplviewer.model.command.TSPLCommand;
+
 import java.util.List;
 
 public record TSPLAnalysisResult (
