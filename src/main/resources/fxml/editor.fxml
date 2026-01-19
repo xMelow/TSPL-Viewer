@@ -18,28 +18,34 @@
     <center>
         <SplitPane>
 
-            <VBox spacing="10" styleClass="tspl-code" prefHeight="200">
+            <VBox styleClass="tspl-code">
                 <Label text="TSPL Code"/>
-                <TextArea fx:id="tsplTextArea" prefHeight="600"/>
+                <Separator />
+
+                <TextArea fx:id="tsplTextArea"/>
             </VBox>
 
-            <VBox spacing="5" styleClass="label-preview">
+            <VBox styleClass="label-preview">
                 <Label text="Label Preview"/>
+                <Separator />
 
                 <StackPane VBox.vgrow="ALWAYS">
                     <Canvas fx:id="previewCanvas" height="600" width="600"/>
                 </StackPane>
             </VBox>
 
-            <VBox spacing="5" styleClass="settings">
+            <VBox styleClass="settings">
                 <Label text="Print Settings"/>
-                <GridPane fx:id="settingsGrid">
-                </GridPane>
-                <VBox>
-                    <Label text="Variables" styleClass="variables"/>
-                    <GridPane fx:id="variableGrid">
-                    </GridPane>
-                </VBox>
+                <Separator />
+
+                <GridPane fx:id="settingsGrid" />
+<!--                <VBox>-->
+<!--                    <Label text="Variables" styleClass="variables"/>-->
+<!--                    <Separator />-->
+
+<!--                    <GridPane fx:id="variableGrid">-->
+<!--                    </GridPane>-->
+<!--                </VBox>-->
             </VBox>
 
         </SplitPane>

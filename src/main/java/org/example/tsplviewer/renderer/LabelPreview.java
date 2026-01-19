@@ -16,6 +16,7 @@ public class LabelPreview {
     public LabelPreview() {}
 
     public void render(List<TSPLCommand> commands, GraphicsContext gc) {
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
         SizeCommand size = getSizeCommand(commands);
         if (size == null) return;
 

@@ -28,7 +28,7 @@ javafx {
 }
 
 application {
-    mainClass.set("org.example.tsplviewer.Main")
+    mainClass.set("org.example.tsplviewer.MainApp")
 }
 
 tasks.test {

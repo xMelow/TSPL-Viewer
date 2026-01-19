@@ -114,9 +114,15 @@ public class AppController {
             if (params.getLast().equals(variableName.trim())) {
                 params.set(params.size() - 1, newValue);
             }
-            System.out.println(params);
+//            System.out.println(params);
         }
-        elementRenderer.render();
+        System.out.println(drawCommands);
+        redrawLabelPreview(drawCommands);
     }
 
+    private void redrawLabelPreview(List<TSPLCommand> commands) {
+        GraphicsContext gc = previewCanvas.getGraphicsContext2D();
+        gc.clearRect(0,0, previewCanvas.getWidth(), previewCanvas.getHeight());
+        labelPreview.render(commands, gc);
+    }
 }

@@ -37,6 +37,16 @@
     -fx-padding: 5;
 }
 
+.separator {
+    -fx-padding: 2 0 10 0;
+}
+
+.separator .line {
+    -fx-border-color: transparent transparent #333 transparent;
+    -fx-border-width: 0 0 2 0;
+}
+
+
 /* ---- Containers ---- */
 
 .tspl-code, .label-preview, .settings, .footer {
@@ -44,9 +54,39 @@
 }
 
 .tspl-code {
-    -fx-pref-width: 500;
+    -fx-alignment: center;
 }
+
+/* ------ TSPL ------ */
+
+.tspl-code .label {
+    -fx-font-weight: 600;
+    -fx-font-size: 20;
+}
+
+.tspl-code .text-area {
+    -fx-pref-height: 800;
+}
+
+/* -- LABEL PREVIEW -- */
 
 .label-preview {
     -fx-pref-width: 500;
+    -fx-alignment: center;
+}
+
+.label-preview .label {
+    -fx-font-weight: 600;
+    -fx-font-size: 20;
+}
+
+/* ---- SETTINGS ---- */
+
+.settings {
+    -fx-alignment: center;
+}
+
+.settings .label {
+    -fx-font-weight: 600;
+    -fx-font-size: 20;
 }
