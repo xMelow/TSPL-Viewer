@@ -10,6 +10,7 @@ public class TSPLLineParser {
     private final ParamParser paramParser = new ParamParser();
 
     public TSPLCommand parseLine(String line) {
+        System.out.println(line);
         String name = extractCommandName(line);
         List<String> params = paramParser.parse(line, name);
 

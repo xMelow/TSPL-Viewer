@@ -31,14 +31,17 @@ public class TSPLValidator {
     private List<ValidationError> validateName(TSPLCommand cmd, int line) {
         List<ValidationError> errors = new ArrayList<>();
 
-        if (cmd.getName().isEmpty()) {
-            errors.add(new ValidationError(line, "Empty command name"));
-            return errors;
+        if (!cmd.getName().isEmpty() && !cmd.getParams().isEmpty()) {
+            if (cmd.getName().isEmpty()) {
+                errors.add(new ValidationError(line, "Empty command name"));
+                return errors;
+            }
+
+            if (!VALID_TSPL_COMMANDS.contains(cmd.getName())) {
+                errors.add(new ValidationError(line, "No known command: " + cmd.getName()));
+            }
         }
 
-        if (!VALID_TSPL_COMMANDS.contains(cmd.getName())) {
-            errors.add(new ValidationError(line, "No known command: " + cmd.getName()));
-        }
         return errors;
     }
 
