@@ -43,7 +43,7 @@ public class AppController {
 
             drawLabelPreview(result.drawCommands());
             displaySettings(result.settingsCommands());
-            displayVariables(result.codeCommands(), result.drawCommands());
+//            displayVariables(result.codeCommands(), result.drawCommands());
         });
     }
 

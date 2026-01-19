@@ -19,7 +19,7 @@
         <SplitPane>
 
             <VBox styleClass="tspl-code">
-                <Label text="TSPL Code"/>
+                <Label text="TSPL"/>
                 <Separator />
 
                 <TextArea fx:id="tsplTextArea"/>
@@ -35,9 +35,11 @@
             </VBox>
 
             <VBox styleClass="settings">
-                <Label text="Print Settings"/>
-                <Separator />
+                <HBox alignment="CENTER">
+                    <Label text="Print Settings" styleClass="header-label"/>
+                </HBox>
 
+                <Separator />
                 <GridPane fx:id="settingsGrid" />
 <!--                <VBox>-->
 <!--                    <Label text="Variables" styleClass="variables"/>-->
@@ -47,12 +49,11 @@
 <!--                    </GridPane>-->
 <!--                </VBox>-->
             </VBox>
-
         </SplitPane>
     </center>
 
     <bottom>
-        <VBox spacing="5" styleClass="footer">
+        <VBox spacing="5" styleClass="error">
             <TextArea fx:id="validationArea" prefHeight="100" editable="false" />
         </VBox>
     </bottom>
